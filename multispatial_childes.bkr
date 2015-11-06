@@ -211,7 +211,8 @@
                 "result": {
                     "type": "BeakerDisplay",
                     "innertype": "Error",
-                    "object": "Interrupted, saved while running."
+                    "object": "Interrupted, saved while running.",
+                    "status": "RUNNING"
                 },
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
@@ -243,10 +244,10 @@
                     "print >> fout, \"Child Age N.child H.child H.child.S H.child.I S.child N.mother H.mother H.mother.S H.mother.I S.mother\"",
                     "",
                     "for child in X.keys():",
-                    "    child_windows = X[child][0]",
-                    "    mother_windows = X[child][1]",
-                    "    stemmed_child_windows = X[child][2]",
-                    "    stemmed_mother_windows = X[child][3]",
+                    "    child_windows = ConvertDictionaryListToListFreqDist(X[child][0])",
+                    "    mother_windows = ConvertDictionaryListToListFreqDist(X[child][1])",
+                    "    stemmed_child_windows = ConvertDictionaryListToListFreqDist(X[child][2])",
+                    "    stemmed_mother_windows = ConvertDictionaryListToListFreqDist(X[child][3]",
                     "    list_child_MLU = X[child][4]",
                     "    list_mother_MLU = X[child][5]",
                     "    index = 0",
