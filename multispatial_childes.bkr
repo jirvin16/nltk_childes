@@ -70,8 +70,8 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "97CE15A2BD724B4BBE16A8A462A384E2",
-                "elapsedTime": 1447
+                "shellId": "2BE7B013F80F4B158CCF64CBD745DA24",
+                "elapsedTime": 1365
             },
             "evaluatorReader": true,
             "lineCount": 15
@@ -83,7 +83,13 @@
             "input": {
                 "body": [
                     "def get_files(corpus):",
-                    "    if corpus =='childes':",
+                    "    # Inputs the name of the corpus ",
+                    "    # Outputs:",
+                    "    # corpus_root: string local path to corpora /.../nltk_data/corpora/childes/[corpus]",
+                    "    # eng: CHILDESCorpusReader tool",
+                    "    # files: lsit of name of files in corpus_root",
+                    "    # data_directory: string location of future output data",
+                    "    if corpus =='manchester':",
                     "        corpus_root = data.find('corpora/childes/English-UK-MOR')",
                     "        eng = CHILDESCorpusReader(corpus_root, 'Manchester/.*.xml')",
                     "        if(corpus_root == \"/Users/dspoka/nltk_data/corpora/childes/English-UK-MOR\"):",
@@ -93,7 +99,7 @@
                     "        files = eng.fileids()",
                     "    return corpus_root, eng, files, data_directory",
                     "# %timeit files = get_files('childes')",
-                    "corpus_root, eng, files, data_directory = get_files('childes')",
+                    "corpus_root, eng, files, data_directory = get_files('manchester')",
                     "nmmfile = data_directory + \"morph-eng.csv\"",
                     "nmsfile = data_directory + \"syntax-eng.csv\"",
                     "# childes has 804 files"
@@ -103,11 +109,11 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "97CE15A2BD724B4BBE16A8A462A384E2",
-                "elapsedTime": 490
+                "shellId": "2BE7B013F80F4B158CCF64CBD745DA24",
+                "elapsedTime": 611
             },
             "evaluatorReader": true,
-            "lineCount": 15
+            "lineCount": 21
         },
         {
             "id": "codeagswSo",
@@ -116,6 +122,8 @@
             "input": {
                 "body": [
                     "def convert_age_to_days(age):",
+                    "    # Takes P[0-9]Y[1-12]M[1-31]D",
+                    "    # Outputs integer number of days",
                     "    parsed_age = re.split('P|Y|M|D',age)",
                     "    years = parsed_age[1]",
                     "    months = parsed_age[2]",
@@ -129,11 +137,11 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "97CE15A2BD724B4BBE16A8A462A384E2",
-                "elapsedTime": 467
+                "shellId": "2BE7B013F80F4B158CCF64CBD745DA24",
+                "elapsedTime": 640
             },
             "evaluatorReader": true,
-            "lineCount": 8
+            "lineCount": 10
         },
         {
             "id": "codeNyisjR",
@@ -142,6 +150,8 @@
             "input": {
                 "body": [
                     "def compare(f1, f2):",
+                    "    # Inputs two files",
+                    "    # Outputs -1 if the child is younger in f1, 1 if child older in f1, 0 if same age",
                     "    age1 = convert_age_to_days(eng.age(f1)[0])",
                     "    age2 = convert_age_to_days(eng.age(f2)[0])",
                     "    if age1 < age2:",
@@ -152,32 +162,35 @@
                     "        return 0",
                     "   ",
                     "def group_files_by_child_age(files):",
-                    "    # Group files by age, child, and corpus",
-                    "    resDict = {}",
+                    "    # Inputs list of all filenames",
+                    "    # Outputs dictionary with keys child names and values list of file names (sorted by age) corresponding to child",
+                    "    child_files_dict = {}",
                     "    for f in files:",
                     "        child = f.split(\"/\")[1]",
-                    "        if resDict.has_key(child):",
-                    "            resDict[child] += [f]",
+                    "        if child_files_dict.has_key(child):",
+                    "            child_files_dict[child] += [f]",
                     "        else:",
-                    "            resDict[child] = [f]",
-                    "    for child in resDict.keys():",
-                    "        resDict[child] = sorted(resDict[child], cmp=compare)",
+                    "            child_files_dict[child] = [f]",
+                    "    for child in child_files_dict.keys():",
+                    "        child_files_dict[child] = sorted(child_files_dict[child], cmp=compare)",
                     "    ",
-                    "    return resDict",
+                    "    return child_files_dict",
                     "",
-                    "# %timeit resDict = group_files_by_child_age(files)",
-                    "resDict = group_files_by_child_age(files)"
+                    "# %timeit child_files_dict = group_files_by_child_age(files)",
+                    "# 2 min to run",
+                    "child_files_dict = group_files_by_child_age(files)",
+                    "# child_files_dict.keys() == [u'becky', u'domin', u'nic', u'joel', u'warr', u'carl', u'gail', u'anne', u'john', u'aran', u'ruth', u'liz']"
                 ]
             },
             "output": {
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "97CE15A2BD724B4BBE16A8A462A384E2",
-                "elapsedTime": 107167
+                "shellId": "2BE7B013F80F4B158CCF64CBD745DA24",
+                "elapsedTime": 108742
             },
             "evaluatorReader": true,
-            "lineCount": 26
+            "lineCount": 31
         },
         {
             "id": "codeeZYBI0",
@@ -186,27 +199,32 @@
             "input": {
                 "body": [
                     "def write_list_to_file(f, file_path, use_stem, speaker):",
+                    "    # Inputs a single child's file name, an out file_path name, a use_stem flag, and speaker (MOT or CHI)",
+                    "    # Writes (to the file file_path) the age of the child in the file f and then the list of all words (or stems) used in f, newline separated",
                     "    fout = open(file_path, \"w\")",
                     "    if(use_stem == False):",
                     "        words = eng.words(f,speaker=speaker,replace=True)",
                     "    else:",
                     "        words = [w.split(\"-\")[0] for w in eng.words(f,speaker=speaker,replace=True,stem=True)]",
                     "    fout.write(str(convert_age_to_days(eng.age(f)[0])) + \"\\n\")",
-                    "#     MLU = get_mean_length_utterance(f, speaker)",
-                    "#     fout.write(str(MLU) + \"\\n\")",
                     "    for word in words:",
                     "        fout.write(word + \"\\n\")",
                     "    fout.close()",
                     "",
                     "def make_dir(directory):",
+                    "    # Inputs a directory path",
+                    "    # Creates a directory path at the input path if it does not already exist",
                     "    if not os.path.exists(directory):",
                     "        os.makedirs(directory)",
                     "",
-                    "def output_words_to_files(resDict):",
-                    "    for child in resDict.keys():",
+                    "def output_words_to_files(child_files_dict):",
+                    "    # Inputs dictionary from children to their files",
+                    "    # Writes (for every child and every file) a list of words (with age on top) corresponding to that child and file",
+                    "    # \"/[child_name]/[speaker][_stem?]/[child_name][0-9][a-c]\" where terminating characters come from original filename",
+                    "    for child in child_files_dict.keys():",
                     "        directory = data_directory + child + \"/\"",
                     "        make_dir(directory)",
-                    "        for f in resDict[child]:",
+                    "        for f in child_files_dict[child]:",
                     "            child_dir = directory + \"child/\"",
                     "            mother_dir = directory + \"mother/\"",
                     "            child_stem_dir = directory + \"child_stem/\"",
@@ -220,25 +238,24 @@
                     "            write_list_to_file(f, mother_dir + file_name, False, \"MOT\")",
                     "            write_list_to_file(f, child_stem_dir + file_name, True, \"CHI\")",
                     "            write_list_to_file(f, mother_stem_dir + file_name, True, \"MOT\") ",
-                    "",
-                    "def list_to_string(x):",
-                    "    string = \"\"",
-                    "    for elem in x:",
-                    "        string += elem + \" \"",
-                    "    return string",
                     "            ",
                     "def write_sentences_to_file(f, file_path, speaker):",
+                    "    # Inputs a file f, and out file_path file_path, and speaker (MOT or CHI)",
+                    "    # Writes (to the file_path) sentences (one per line) used in f by speaker",
                     "    fout = open(file_path, \"w\")",
                     "    sentences = eng.sents(f, speaker=speaker,replace=True)",
                     "    for sentence in sentences:",
-                    "        fout.write(list_to_string(sentence) + \"\\n\")",
+                    "        fout.write(\" \".join(sentence) + \"\\n\")",
                     "    fout.close()",
                     "            ",
-                    "def output_sentences_to_files(resDict):",
-                    "    for child in resDict.keys():",
+                    "def output_sentences_to_files(child_files_dict):",
+                    "    # Inputs dictionary from children to their files",
+                    "    # Writes (for every child and every file) a list of sentences corresponding to that child and file",
+                    "    # \"/[child_name]/[speaker]_sentences/[child_name][0-9][a-c]\" where terminating characters come from original filename",
+                    "    for child in child_files_dict.keys():",
                     "        directory = data_directory + child + \"/\"",
                     "        make_dir(directory)",
-                    "        for f in resDict[child]:",
+                    "        for f in child_files_dict[child]:",
                     "            child_sentence_dir = directory + \"child_sentences/\"",
                     "            mother_sentence_dir = directory + \"mother_sentences/\"",
                     "            file_name = (str(f)[11:-4].split(\"/\"))[1]",
@@ -246,16 +263,21 @@
                     "            make_dir(mother_sentence_dir)",
                     "            write_sentences_to_file(f, child_sentence_dir + file_name, \"CHI\")",
                     "            write_sentences_to_file(f, mother_sentence_dir + file_name, \"MOT\")",
-                    "            ",
-                    "# output_words_to_files(resDict)",
-                    "output_sentences_to_files(resDict)"
+                    "",
+                    "# 21 min to run",
+                    "output_words_to_files(child_files_dict)",
+                    "output_sentences_to_files(child_files_dict)"
                 ]
             },
             "output": {
-                "state": {}
+                "state": {},
+                "selectedType": "BeakerDisplay",
+                "pluginName": "IPython",
+                "shellId": "2BE7B013F80F4B158CCF64CBD745DA24",
+                "elapsedTime": 1269759
             },
             "evaluatorReader": true,
-            "lineCount": 64
+            "lineCount": 69
         },
         {
             "id": "codeM89n61",
