@@ -78,7 +78,8 @@ write.table(x, "/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/tau
 
 tau_data <- read.table("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/tau_data.csv", header = TRUE, sep = ",")
 
-average_taus <- sapply(tau_data, mean)
+# average_taus <- sapply(tau_data, mean)
+average_taus <- sapply(tau_data, median)
 
 joint_length = nrow(df)
 
@@ -129,15 +130,18 @@ for(measurement in measurement_names) {
 rownames(joint_tau_embed) <- c("T", "E")
 
 # par(mfrow=c(10,1),mar=c(1,1,1,1))
+p_values <- c()
+names <- c()
 for(i in 1:(length(measurement_names)/2)) {
   #Check data for nonlinear signal that is not dominated by noise
   #Checks whether predictive ability of processes declines with increasing time distance
-  child_col = measurement_names[[i]]
+  ptm <- proc.time()
+  child_col <- measurement_names[[i]]
   child_series <- concat_series[[child_col]]
   child_E <- joint_tau_embed["E",child_col]
   child_T <- joint_tau_embed["T",child_col]
   
-  mother_col = measurement_names[[i + length(measurement_names)/2]]
+  mother_col <- measurement_names[[i + length(measurement_names)/2]]
   mother_series <- concat_series[[mother_col]]
   mother_E <- joint_tau_embed["E",mother_col]
   mother_T <- joint_tau_embed["T",mother_col]
@@ -157,13 +161,17 @@ for(i in 1:(length(measurement_names)/2)) {
   # Does child series "cause" mother series?
   # Note - increase iterations to 100 for consistant results
 
-  CCM_boot_child<-CCM_boot(child_series, mother_series, child_E, tau=child_T, iterations=10)
+  CCM_boot_child<-CCM_boot(child_series, mother_series, child_E, tau=child_T, iterations=100)
   
   # Does mother series "cause" child series?
-  CCM_boot_mother<-CCM_boot(mother_series, child_series, mother_E, tau= mother_T, iterations=10)
+  CCM_boot_mother<-CCM_boot(mother_series, child_series, mother_E, tau= mother_T, iterations=100)
   
-  # Test for significant causal signal
-  (CCM_significance_test<-ccmtest(CCM_boot_child,CCM_boot_mother))
+  
+  # Tests for significant causal signal based on 95%
+  # confidence intervals from bootstrapping.
+  CCM_significance_test <- ccmtest(CCM_boot_child,CCM_boot_mother) 
+  names <- c(names, paste(child_col, "causes", mother_col, CCM_significance_test[[1]]), paste(mother_col, "causes", child_col, CCM_significance_test[[2]]))
+  p_values <- c(p_values, CCM_significance_test)
   
   # Plot results
   plotxlimits<-range(c(CCM_boot_child$Lobs, CCM_boot_mother$Lobs))
@@ -183,4 +191,11 @@ for(i in 1:(length(measurement_names)/2)) {
   legend("topleft", c(paste(child_col, "causes", mother_col), paste(mother_col, "causes", child_col)), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
   dev.off()
   print(i)
+  print(proc.time() - ptm)
+# break
 }
+names(p_values) <- names
+fdr_p_values <- (p.adjust(p_values, method="fdr"))
+names(fdr_p_values) <- names
+
+
