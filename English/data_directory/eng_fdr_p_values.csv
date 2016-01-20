@@ -1,0 +1,9 @@
+"fdr_p_values"
+"N.child causes N.mother" 0.0608000000000001
+"N.mother causes N.child" 0
+"H.child.S causes H.mother.S" 0.453333333333333
+"H.mother.S causes H.child.S" 0.004
+"H.child.I causes H.mother.I" 0.564
+"H.mother.I causes H.child.I" 0.472
+"Schild causes Smother" 0
+"Smother causes Schild" 0.004

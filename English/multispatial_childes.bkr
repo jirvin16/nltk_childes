@@ -70,8 +70,8 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "EACB577009FC42558060782189EC9826",
-                "elapsedTime": 1378
+                "shellId": "48A00AF5AC3349BE8AD6FDCA8EFA0400",
+                "elapsedTime": 1261
             },
             "evaluatorReader": true,
             "lineCount": 15
@@ -98,7 +98,7 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "EACB577009FC42558060782189EC9826",
+                "shellId": "48A00AF5AC3349BE8AD6FDCA8EFA0400",
                 "elapsedTime": 458
             },
             "evaluatorReader": true,
@@ -135,10 +135,10 @@
             },
             "output": {
                 "state": {},
-                "selectedType": "Hidden",
+                "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "EACB577009FC42558060782189EC9826",
-                "elapsedTime": 460
+                "shellId": "48A00AF5AC3349BE8AD6FDCA8EFA0400",
+                "elapsedTime": 454
             },
             "evaluatorReader": true,
             "lineCount": 21
@@ -186,8 +186,8 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "EACB577009FC42558060782189EC9826",
-                "elapsedTime": 85331
+                "shellId": "48A00AF5AC3349BE8AD6FDCA8EFA0400",
+                "elapsedTime": 68445
             },
             "evaluatorReader": true,
             "lineCount": 31
@@ -325,8 +325,8 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "EACB577009FC42558060782189EC9826",
-                "elapsedTime": 488
+                "shellId": "48A00AF5AC3349BE8AD6FDCA8EFA0400",
+                "elapsedTime": 528
             },
             "evaluatorReader": true,
             "lineCount": 121
@@ -423,8 +423,8 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "EACB577009FC42558060782189EC9826",
-                "elapsedTime": 997827
+                "shellId": "48A00AF5AC3349BE8AD6FDCA8EFA0400",
+                "elapsedTime": 1066332
             },
             "evaluatorReader": true,
             "lineCount": 80
@@ -497,8 +497,8 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "EACB577009FC42558060782189EC9826",
-                "elapsedTime": 6189,
+                "shellId": "48A00AF5AC3349BE8AD6FDCA8EFA0400",
+                "elapsedTime": 7382,
                 "dataresult": [
                     "becky",
                     "domin",
@@ -602,8 +602,8 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "EACB577009FC42558060782189EC9826",
-                "elapsedTime": 393
+                "shellId": "48A00AF5AC3349BE8AD6FDCA8EFA0400",
+                "elapsedTime": 389
             },
             "evaluatorReader": true,
             "lineCount": 73

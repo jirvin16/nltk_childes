@@ -2,7 +2,7 @@ library(multispatialCCM)
 library(tseriesChaos)
 library(cluster)
 
-df <- read.table("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directoy/morph-eng.csv", header = TRUE)
+df <- read.table("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/Hebrew/data_directory/morph-heb.csv", header = TRUE)
 
 sorted_df <- df[order(df[,'Child'],df[,'Age']), ]
 
@@ -45,7 +45,7 @@ for(i in 2:length(sorted_name_list)) {
   for(measurement in measurement_names) {
     series <- child_df[[measurement]]
     average_mutual_information <- mutual(series, plot = FALSE, lag.max = 10)
-#     plot(average_mutual_information) WORTH INVESTIGATING TAUS
+    #     plot(average_mutual_information) WORTH INVESTIGATING TAUS
     #     print(sprintf("Tau for stat %s for child %s is %d", measurement, sorted_name_list[[i]], GetMinTau(ami)))
     child_data[measurement] <- GetMinTau(average_mutual_information)
   }
@@ -67,16 +67,16 @@ MyClust = function(x,k,...){
   list(cluster=dvk)
   
 }
-# Find the optimal number of clusters from 1 to 5 of children in tau_data
-# clusters <- clusGap(x, FUNcluster = MyClust, K.max = 5)
-
+# # Find the optimal number of clusters from 1 to 5 of children in tau_data
+# clusters <- clusGap(x, FUNcluster = MyClust, K.max = 2)
+# 
 # print(maxSE(clusters$Tab[,3],clusters$Tab[,4],"Tibs2001SEmax"))
-
+# 
 # print(clusters)
 
-write.table(x, "/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/tau_data.csv", sep = ",")
+write.table(x, "/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/Hebrew/data_directory/tau_data.csv", sep = ",")
 
-tau_data <- read.table("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/tau_data.csv", header = TRUE, sep = ",")
+tau_data <- read.table("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/Hebrew/data_directory/tau_data.csv", header = TRUE, sep = ",")
 
 # average_taus <- sapply(tau_data, mean)
 average_taus <- sapply(tau_data, median)
@@ -152,7 +152,7 @@ for(i in 1:(length(measurement_names)/2)) {
   mother_signal <- SSR_check_signal(A=mother_series, E=mother_E, tau=mother_T, predsteplist=1:10)
   mother_signal_plot <- mother_signal$predatout
   
-  jpeg(paste(child_col, mother_col, "Signal.jpg", sep="_"))
+  jpeg(paste("Hebrew",child_col, mother_col, "Signal.jpg", sep="_"))
   plot <- cbind(child_signal_plot$rho, mother_signal_plot$rho)
   matplot(1:10, plot, type="l", col=1:2, lty=1:2, xlab="prediction steps", ylab="rho", lwd=2)
   legend("bottomleft", c(child_col, mother_col), lty=1:2, col=1:2, lwd=2, bty="n")
@@ -160,7 +160,7 @@ for(i in 1:(length(measurement_names)/2)) {
   
   # Does child series "cause" mother series?
   # Note - increase iterations to 100 for consistant results
-
+  
   CCM_boot_child<-CCM_boot(child_series, mother_series, child_E, tau=child_T, iterations=1000)
   
   # Does mother series "cause" child series?
@@ -176,7 +176,7 @@ for(i in 1:(length(measurement_names)/2)) {
   # Plot results
   plotxlimits<-range(c(CCM_boot_child$Lobs, CCM_boot_mother$Lobs))
   
-  jpeg(paste(child_col, mother_col, "Cause.jpg", sep="_"))
+  jpeg(paste("Hebrew",child_col, mother_col, "Cause.jpg", sep="_"))
   # Plot "child series causes mother series"
   plot(CCM_boot_child$Lobs, CCM_boot_child$rho, type="l", col=1, lwd=2, xlim=c(plotxlimits[1], plotxlimits[2]), ylim=c(0,1), xlab="L", ylab="rho")
   
@@ -188,16 +188,15 @@ for(i in 1:(length(measurement_names)/2)) {
   
   # Add +/- 1 standard error
   matlines(CCM_boot_mother$Lobs, cbind(CCM_boot_mother$rho-CCM_boot_mother$sdevrho,CCM_boot_mother$rho+CCM_boot_mother$sdevrho), lty=3, col=2)
-  legend("topleft", c(paste(child_col, "causes", mother_col, CCM_significance_test[[1]]), paste(mother_col, "causes", child_col, CCM_significance_test[[2]])), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
+  legend("topleft", c(paste("Hebrew", child_col, "causes", mother_col, CCM_significance_test[[1]]), paste("Hebrew", mother_col, "causes", child_col, CCM_significance_test[[2]])), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
   dev.off()
   print(i)
   print(proc.time() - ptm)
-# break
+  # break
 }
 names(p_values) <- names
 fdr_p_values <- (p.adjust(p_values, method="fdr"))
 names(fdr_p_values) <- names
 fdr_df <- data.frame(fdr_p_values)
-# write.table(fdr_df, "/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/eng_fdr_p_values.csv")
-
+write.table(fdr_df, "/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/Hebrew/data_directory/heb_fdr_p_values.csv")
 
