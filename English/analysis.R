@@ -2,26 +2,26 @@ library(multispatialCCM)
 library(tseriesChaos)
 library(cluster)
 
-# df <- read.table("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/morph-eng.csv", header = TRUE)
-# 
-# sorted_df <- df[order(df[,'Child'],df[,'Age']), ]
-# 
-# name_list <- unique(df[,'Child'])
-# 
-# sorted_name_list <- sort(name_list)
-# 
-# column_list <- colnames(df)
-# 
-# column_list <- column_list[column_list != "Child"]
-# 
-# sorted_df[, column_list] <- sapply(sorted_df[, column_list], as.numeric)
-# 
-# list_child_df <- list()
-# for(i in 1:length(sorted_name_list)) {
-#   list_child_df[[i]] <- sorted_df[which(sorted_df["Child"] == as.character(sorted_name_list[[i]])), ]
-# }
-# 
-# measurement_names <- column_list[column_list != "Age"]
+df <- read.table("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/morph-eng.csv", header = TRUE)
+
+sorted_df <- df[order(df[,'Child'],df[,'Age']), ]
+
+name_list <- unique(df[,'Child'])
+
+sorted_name_list <- sort(name_list)
+
+column_list <- colnames(df)
+
+column_list <- column_list[column_list != "Child"]
+
+sorted_df[, column_list] <- sapply(sorted_df[, column_list], as.numeric)
+
+list_child_df <- list()
+for(i in 1:length(sorted_name_list)) {
+  list_child_df[[i]] <- sorted_df[which(sorted_df["Child"] == as.character(sorted_name_list[[i]])), ]
+}
+
+measurement_names <- column_list[column_list != "Age"]
 # 
 # GetMinTau <- function(average_mutual_information) {
 #   tau = 1
@@ -140,20 +140,21 @@ library(cluster)
 # CCM_significance_test_list <- list()
 # p_values <- c()
 # names <- c()
-measurement_names<- c("Number of Child Words", "Child Lexical Diversity", "Child Inflectional Diversity", "Child Syntactic Diversity",
-                      "Number of Mother Words", "Mother Lexical Diversity", "Mother Inflectional Diversity", "Mother Syntactic Diversity")
+
+pic_titles <- c("Number of Words", "Lexical Diversity", "Inflectional Diversity", "Syntactic Diversity")
+# measurement_names<- c("Number of Child Words", "Child Lexical Diversity", "Child Inflectional Diversity", "Child Syntactic Diversity",
+#                       "Number of Mother Words", "Mother Lexical Diversity", "Mother Inflectional Diversity", "Mother Syntactic Diversity")
 pic_names <- c("N_Words", "Lexical", "Inflectional", "Syntactic")
-j<-1
 for(i in 1:(length(measurement_names)/2)) {
   #Check data for nonlinear signal that is not dominated by noise
   #Checks whether predictive ability of processes declines with increasing time distance
 #   ptm <- proc.time()
-  child_col <- measurement_names[[i]]
+#   child_col <- measurement_names[[i]]
 #   child_series <- concat_series[[child_col]]
 #   child_E <- joint_tau_embed["E",child_col]
 #   child_T <- joint_tau_embed["T",child_col]
 #   
-  mother_col <- measurement_names[[i + length(measurement_names)/2]]
+#   mother_col <- measurement_names[[i + length(measurement_names)/2]]
 #   mother_series <- concat_series[[mother_col]]
 #   mother_E <- joint_tau_embed["E",mother_col]
 #   mother_T <- joint_tau_embed["T",mother_col]
@@ -174,7 +175,8 @@ jpeg(paste(pic_names[[i]], "Signal.jpg", sep="_"))
 #   plot_list[[i]] <- plot
 plot <- plot_list[[i]]
   matplot(1:10, plot, type="l", col=1:2, lty=1:2, xlab="Prediction Steps", ylab=expression(rho), lwd=2)
-  legend("bottomleft", c(child_col, mother_col), lty=1:2, col=1:2, lwd=2, bty="n")
+title(main = pic_titles[[i]])
+  legend("bottomleft", c("Child", "Mother"), lty=1:2, col=1:2, lwd=2, bty="n")
   dev.off()
 #   
 #   # Does child series "cause" mother series?
@@ -202,21 +204,22 @@ CCM_boot_mother <- CCM_boot_mother_list[[i]]
   jpeg(paste(pic_names[[i]], "Cause.jpg", sep="_"))
   # Plot "child series causes mother series"
   plot(CCM_boot_child$Lobs, CCM_boot_child$rho, type="l", col=1, lwd=2, xlim=c(plotxlimits[1], plotxlimits[2]), ylim=c(0,1), xlab="Library Length", ylab=expression(rho))
-  
+  title(main = pic_titles[[i]])
 #   Add +/- 1 standard error
   matlines(CCM_boot_child$Lobs, cbind(CCM_boot_child$rho-CCM_boot_child$sdevrho, CCM_boot_child$rho+CCM_boot_child$sdevrho), lty=3, col=1)
   
   # Plot "mother inflection causes child inflection"
   lines(CCM_boot_mother$Lobs, CCM_boot_mother$rho, type="l", col=2, lty=2, lwd=2)
-  
+# format(round(x, 2), nsmall = 2)
   # Add +/- 1 standard error
   matlines(CCM_boot_mother$Lobs, cbind(CCM_boot_mother$rho-CCM_boot_mother$sdevrho,CCM_boot_mother$rho+CCM_boot_mother$sdevrho), lty=3, col=2)
-  print(fdr_p_values[[j]])
-  print(fdr_p_values[[j+1]])
-  legend("topleft", c(paste(child_col, "drives", mother_col, fdr_p_values[[j]]), paste(mother_col, "drives", child_col, fdr_p_values[[j+1]])), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
+  c_m <- format(round(fdr_p_values[[2*i-1]],3), nsmall = 3)
+  m_c <- format(round(fdr_p_values[[2*i]],3), nsmall = 3)
+  c_m_legend <- if(fdr_p_values[[2*i-1]] > 0.000) paste(", p =", c_m) else ", p < 0.001"
+  m_c_legend <- if(fdr_p_values[[2*i]] > 0.000) paste(", p =", m_c) else ", p < 0.001"
+  legend("topleft", c(paste("Child drives Mother", c_m_legend, sep = "" ) , paste("Mother drives Child", m_c_legend, sep = "" )), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
   dev.off()
   print(i)
-  j <- j + 2
 #   print(proc.time() - ptm)
 # # break
 }
