@@ -22,39 +22,41 @@ for(i in 1:length(sorted_name_list)) {
 }
 
 measurement_names <- column_list[column_list != "Age"]
-# 
-# GetMinTau <- function(average_mutual_information) {
-#   tau = 1
-#   for(i in 2:(length(average_mutual_information) - 1)) {
-#     if(average_mutual_information[[i]] < average_mutual_information[[i+1]]) {
-#       tau = i - 1
-#       break
-#     }
-#   }
-#   return(tau)
-# }
-# 
-# 
-# 
-# tau_data <- data.frame(matrix(ncol = 0, nrow = length(measurement_names)))
-# 
-# for(i in 2:length(sorted_name_list)) {
-#   child_df <- list_child_df[[i]]
-#   child_data <- numeric()
-#   child <- as.character(sorted_name_list[[i]])
-#   for(measurement in measurement_names) {
-#     series <- child_df[[measurement]]
-#     average_mutual_information <- mutual(series, plot = FALSE, lag.max = 10)
-# #     plot(average_mutual_information) WORTH INVESTIGATING TAUS
-#     #     print(sprintf("Tau for stat %s for child %s is %d", measurement, sorted_name_list[[i]], GetMinTau(ami)))
-#     child_data[measurement] <- GetMinTau(average_mutual_information)
-#   }
-#   tau_data[[child]] <- child_data
-# }
-# 
+
+GetMinTau <- function(average_mutual_information) {
+  tau = 1
+  for(i in 2:(length(average_mutual_information) - 1)) {
+    if(average_mutual_information[[i]] < average_mutual_information[[i+1]]) {
+      tau = i - 1
+      break
+    }
+  }
+  return(tau)
+}
+
+
+
+tau_data <- data.frame(matrix(ncol = 0, nrow = length(measurement_names)))
+
+for(i in 2:length(sorted_name_list)) {
+  child_df <- list_child_df[[i]]
+  child_data <- numeric()
+  child <- as.character(sorted_name_list[[i]])
+  for(measurement in measurement_names) {
+    series <- child_df[[measurement]]
+    average_mutual_information <- mutual(series, plot = FALSE, lag.max = 10)
+    jpeg(paste("poop", measurement, ".jpg", sep=""))
+    matplot(1:length(average_mutual_information), average_mutual_information, type="l", xlab="T", ylab="AMI") # WORTH INVESTIGATING TAUS
+    dev.off()
+    #     print(sprintf("Tau for stat %s for child %s is %d", measurement, sorted_name_list[[i]], GetMinTau(ami)))
+    child_data[measurement] <- GetMinTau(average_mutual_information)
+  }
+  tau_data[[child]] <- child_data
+}
+
 # row.names(tau_data) <- measurement_names
-# # print(tau_data)
-# x <- t(tau_data)
+# 
+# tau_data <- t(tau_data)
 # 
 # MyClust = function(x,k,...){
 #   # Inputs data x
@@ -74,9 +76,9 @@ measurement_names <- column_list[column_list != "Age"]
 # 
 # # print(clusters)
 # 
-# write.table(x, "/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/tau_data.csv", sep = ",")
+# write.table(tau_data, "/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/tau_data2.csv", sep = ",")
 # 
-# tau_data <- read.table("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/tau_data.csv", header = TRUE, sep = ",")
+# tau_data <- read.table("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/tau_data2.csv", header = TRUE, sep = ",")
 # 
 # # average_taus <- sapply(tau_data, mean)
 # average_taus <- sapply(tau_data, median)
@@ -100,7 +102,7 @@ measurement_names <- column_list[column_list != "Age"]
 #   concat_series[[col]] <- col_data
 # }
 # 
-# #Calculate optimal E
+# # Calculate optimal E
 # 
 # # Maximum embedding dimension E to test
 # maxE<-5
@@ -129,102 +131,158 @@ measurement_names <- column_list[column_list != "Age"]
 # 
 # rownames(joint_tau_embed) <- c("T", "E")
 # 
-# # par(mfrow=c(10,1),mar=c(1,1,1,1))
-# child_signal_list <- list()
-# child_signal_plot_list <- list()
-# mother_signal_list <- list()
-# mother_signal_plot_list <- list()
-# plot_list <- list()
+# # Flag to set if running for first time to perform large
+# # calculations and store the data.
+# # Set to false to avoid long computation again.
+# first_run = FALSE
 # CCM_boot_child_list <- list()
 # CCM_boot_mother_list <- list()
-# CCM_significance_test_list <- list()
-# p_values <- c()
-# names <- c()
+# if(first_run) {
+#   # Store to adjust after computation
+#   p_values <- c()
+#   # For names of p_values
+#   names <- c()
+# } else {
+#   # Get CCM_boot_child_list from file
+#   directory_names = gsub(" ", "_", pic_titles)
+#   for(i in 1:(length(directory_names))) {
+#     dirname = paste("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/CCM_boot_child_data/", directory_names[[i]], sep="")
+#     filenames = list.files(dirname)
+#     CCM_boot_child_list[[i]] = vector("list", length(filenames))
+#     names(CCM_boot_child_list[[i]]) <- filenames
+#     for(j in 1:(length(filenames))) {
+#       CCM_boot_child_list[[i]][filenames[[j]]] = scan(paste(dirname, "/", filenames[[j]], sep = ""))
+#     }
+#   }
+#   # Get CCM_boot_mother_list from file
+#   # Get fdr_p_values from file
+#   fdr_p_values = read.table("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/eng_fdr_p_values.csv", header=TRUE)
+# }
+# 
+# 
 
-pic_titles <- c("Number of Words", "Lexical Diversity", "Inflectional Diversity", "Syntactic Diversity")
-# measurement_names<- c("Number of Child Words", "Child Lexical Diversity", "Child Inflectional Diversity", "Child Syntactic Diversity",
+# pic_titles <- c("Number of Words", "Lexical Diversity", "Inflectional Diversity", "Syntactic Diversity")
+# formal_measurement_names<- c("Number of Child Words", "Child Lexical Diversity", "Child Inflectional Diversity", "Child Syntactic Diversity",
 #                       "Number of Mother Words", "Mother Lexical Diversity", "Mother Inflectional Diversity", "Mother Syntactic Diversity")
-pic_names <- c("N_Words", "Lexical", "Inflectional", "Syntactic")
-for(i in 1:(length(measurement_names)/2)) {
-  #Check data for nonlinear signal that is not dominated by noise
-  #Checks whether predictive ability of processes declines with increasing time distance
+# pic_names <- c("N_Words", "Lexical", "Inflectional", "Syntactic")
+# 
+# # Performs causal analysis for each measurement
+# # and stores the CCM_boot for child and mother
+# # as well as p_values for fdr
+# for(i in 1:(length(formal_measurement_names)/2)) {
+#   #Check data for nonlinear signal that is not dominated by noise
+#   #Checks whether predictive ability of processes declines with increasing time distance
 #   ptm <- proc.time()
+#   
 #   child_col <- measurement_names[[i]]
 #   child_series <- concat_series[[child_col]]
 #   child_E <- joint_tau_embed["E",child_col]
 #   child_T <- joint_tau_embed["T",child_col]
-#   
-#   mother_col <- measurement_names[[i + length(measurement_names)/2]]
+# 
+#   mother_col <- measurement_names[[i + length(formal_measurement_names)/2]]
 #   mother_series <- concat_series[[mother_col]]
 #   mother_E <- joint_tau_embed["E",mother_col]
 #   mother_T <- joint_tau_embed["T",mother_col]
-#   
+#    
 #   child_signal <- SSR_check_signal(A=child_series, E=child_E, tau=child_T, predsteplist=1:10)
-#   # child_signal_list[[i]] <- child_signal
 #   child_signal_plot <- child_signal$predatout
-#   # child_signal_plot_list[[i]] <- child_signal_plot
 #   
 #   mother_signal <- SSR_check_signal(A=mother_series, E=mother_E, tau=mother_T, predsteplist=1:10)
-#   # mother_signal_list[[i]] <- mother_signal
 #   mother_signal_plot <- mother_signal$predatout
-#   # mother_signal_plot_list[[i]] <- mother_signal_plot
 #   
-# #   jpeg(paste(child_col, mother_col, "Signal.jpg", sep="_"))
-jpeg(paste(pic_names[[i]], "Signal.jpg", sep="_"))
-#   plot <- cbind(child_signal_plot$rho, mother_signal_plot$rho)
-#   plot_list[[i]] <- plot
-plot <- plot_list[[i]]
-  matplot(1:10, plot, type="l", col=1:2, lty=1:2, xlab="Prediction Steps", ylab=expression(rho), lwd=2)
-title(main = pic_titles[[i]])
-  legend("bottomleft", c("Child", "Mother"), lty=1:2, col=1:2, lwd=2, bty="n")
-  dev.off()
-#   
-#   # Does child series "cause" mother series?
-#   # Note - increase iterations to 100 for consistent results
+#   # Plot the signal only on first run
+#   if(first_run) {
+#     jpeg(paste(pic_names[[i]], "Signal.jpg", sep="_"))
+#     plot <- cbind(child_signal_plot$rho, mother_signal_plot$rho)
+#     matplot(1:10, plot, type="l", col=1:2, lty=1:2, xlab="Prediction Steps", ylab=expression(rho), lwd=2)
+#     title(main = pic_titles[[i]])
+#     legend("bottomleft", c("Child", "Mother"), lty=1:2, col=1:2, lwd=2, bty="n")
+#     dev.off()
+#   }
 # 
-#   CCM_boot_child<-CCM_boot(child_series, mother_series, child_E, tau=child_T, iterations=1000)
-#   CCM_boot_child_list[[i]] <- CCM_boot_child
-CCM_boot_child <- CCM_boot_child_list[[i]]
-#   
+#   # Does child series "cause" mother series?
+#   # Only perform computation once, set first_run 
+#   # to false after running once
+#   if(first_run) {
+#     CCM_boot_child <- CCM_boot(child_series, mother_series, child_E, tau=child_T, iterations=5) # CHANGE THIS TO 1000
+#     CCM_boot_child_list[[i]] <- CCM_boot_child
+#   }
+#   else {
+#     CCM_boot_child <- CCM_boot_child_list[[i]]  
+#   }
+# 
 #   # Does mother series "cause" child series?
-#   CCM_boot_mother<-CCM_boot(mother_series, child_series, mother_E, tau= mother_T, iterations=1000)
-#   CCM_boot_mother_list[[i]] <- CCM_boot_mother
-CCM_boot_mother <- CCM_boot_mother_list[[i]]
-#   
-#   # Tests for significant causal signal based on 95%
+#   if(first_run) {
+#     CCM_boot_mother <- CCM_boot(mother_series, child_series, mother_E, tau= mother_T, iterations=5) # CHANGE THIS TO 1000
+#     CCM_boot_mother_list[[i]] <- CCM_boot_mother
+#   }
+#   else { 
+#     CCM_boot_mother <- CCM_boot_mother_list[[i]] 
+#   }
+# 
+#   # Tests for significant causal signal based on 95% 
 #   # confidence intervals from bootstrapping.
-#   CCM_significance_test <- ccmtest(CCM_boot_child,CCM_boot_mother) 
-#   CCM_significance_test_list[[i]] <- CCM_significance_test
-#   names <- c(names, paste(child_col, "causes", mother_col), paste(mother_col, "causes", child_col))
-#   p_values <- c(p_values, CCM_significance_test)
-#   
+#   if(first_run) {
+#     CCM_significance_test <- ccmtest(CCM_boot_child,CCM_boot_mother)
+#     p_values <- c(p_values, CCM_significance_test)
+#     names <- c(names, paste(child_col, "causes", mother_col), paste(mother_col, "causes", child_col))
+#   }
+# 
 #   # Plot results
-# #   plotxlimits<-range(c(CCM_boot_child$Lobs, CCM_boot_mother$Lobs))
+#   if(!first_run) {
+#     plotxlimits <- range(c(CCM_boot_child$Lobs, CCM_boot_mother$Lobs))
 #   
-  jpeg(paste(pic_names[[i]], "Cause.jpg", sep="_"))
-  # Plot "child series causes mother series"
-  plot(CCM_boot_child$Lobs, CCM_boot_child$rho, type="l", col=1, lwd=2, xlim=c(plotxlimits[1], plotxlimits[2]), ylim=c(0,1), xlab="Library Length", ylab=expression(rho))
-  title(main = pic_titles[[i]])
-#   Add +/- 1 standard error
-  matlines(CCM_boot_child$Lobs, cbind(CCM_boot_child$rho-CCM_boot_child$sdevrho, CCM_boot_child$rho+CCM_boot_child$sdevrho), lty=3, col=1)
-  
-  # Plot "mother inflection causes child inflection"
-  lines(CCM_boot_mother$Lobs, CCM_boot_mother$rho, type="l", col=2, lty=2, lwd=2)
-# format(round(x, 2), nsmall = 2)
-  # Add +/- 1 standard error
-  matlines(CCM_boot_mother$Lobs, cbind(CCM_boot_mother$rho-CCM_boot_mother$sdevrho,CCM_boot_mother$rho+CCM_boot_mother$sdevrho), lty=3, col=2)
-  c_m <- format(round(fdr_p_values[[2*i-1]],3), nsmall = 3)
-  m_c <- format(round(fdr_p_values[[2*i]],3), nsmall = 3)
-  c_m_legend <- if(fdr_p_values[[2*i-1]] > 0.000) paste(", p =", c_m) else ", p < 0.001"
-  m_c_legend <- if(fdr_p_values[[2*i]] > 0.000) paste(", p =", m_c) else ", p < 0.001"
-  legend("topleft", c(paste("Child drives Mother", c_m_legend, sep = "" ) , paste("Mother drives Child", m_c_legend, sep = "" )), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
-  dev.off()
-  print(i)
+#     jpeg(paste(pic_names[[i]], "Cause.jpg", sep="_"))
+#     
+#     # Plot "child series causes mother series"
+#     plot(CCM_boot_child$Lobs, CCM_boot_child$rho, type="l", col=1, lwd=2, xlim=c(plotxlimits[1], plotxlimits[2]), ylim=c(0,1), xlab="Library Length", ylab=expression(rho))
+#     title(main = pic_titles[[i]])
+#     
+#     # Add +/- 1 standard error
+#     matlines(CCM_boot_child$Lobs, cbind(CCM_boot_child$rho-CCM_boot_child$sdevrho, CCM_boot_child$rho+CCM_boot_child$sdevrho), lty=3, col=1)
+#     
+#     # Plot "mother inflection causes child inflection"
+#     lines(CCM_boot_mother$Lobs, CCM_boot_mother$rho, type="l", col=2, lty=2, lwd=2)
+# 
+#     # Add +/- 1 standard error
+#     matlines(CCM_boot_mother$Lobs, cbind(CCM_boot_mother$rho-CCM_boot_mother$sdevrho,CCM_boot_mother$rho+CCM_boot_mother$sdevrho), lty=3, col=2)
+#     c_m <- format(round(fdr_p_values[[2*i-1]],3), nsmall = 3)
+#     m_c <- format(round(fdr_p_values[[2*i]],3), nsmall = 3)
+#     
+#     # Change p value shown if smaller than 0.001
+#     c_m_legend <- if(fdr_p_values[[2*i-1]] > 0.000) paste(", p =", c_m) else ", p < 0.001"
+#     m_c_legend <- if(fdr_p_values[[2*i]] > 0.000) paste(", p =", m_c) else ", p < 0.001"
+#     legend("topleft", c(paste("Child drives Mother", c_m_legend, sep = "" ) , paste("Mother drives Child", m_c_legend, sep = "" )), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
+#     dev.off()
+#   }
+#   print(i)
 #   print(proc.time() - ptm)
-# # break
-}
-# names(p_values) <- names
-# fdr_p_values <- (p.adjust(p_values, method="fdr"))
-# names(fdr_p_values) <- names
-# fdr_df <- data.frame(fdr_p_values)
-# write.table(fdr_df, "/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/eng_fdr_p_values.csv")
+# }
+# # Output CCM_boots and fdr_p_values to file
+# if(first_run) {
+#   # Store CCM_boot_child_list
+#   dir.create("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/CCM_boot_child_data", showWarnings = FALSE)
+#   directory_names = gsub(" ", "_", pic_titles)
+#   for(i in 1:(length(directory_names))) {
+#     dirname = paste("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/CCM_boot_child_data/", directory_names[[i]], sep="")
+#     dir.create(dirname, showWarnings = FALSE)
+#     for(j in 1:(length(CCM_boot_child_list[[i]]))) {
+#       write(CCM_boot_child_list[[i]][[j]], paste(dirname, "/", names(CCM_boot_child_list[[i]])[[j]], sep = ""))
+#     }
+#   }
+#   # Store CCM_boot_child_list
+#   dir.create("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/CCM_boot_mother_data", showWarnings = FALSE)
+#   directory_names = gsub(" ", "_", pic_titles)
+#   for(i in 1:(length(directory_names))) {
+#     dirname = paste("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/CCM_boot_mother_data/", directory_names[[i]], sep="")
+#     dir.create(dirname, showWarnings = FALSE)
+#     for(j in 1:(length(CCM_boot_mother_list[[i]]))) {
+#       write(CCM_boot_mother_list[[i]][[j]], paste(dirname, "/", names(CCM_boot_mother_list[[i]])[[j]], sep = ""))
+#     }
+#   }
+#   # Store the fdr_p_values
+#   fdr_p_values <- (p.adjust(p_values, method="fdr"))
+#   fdr_df <- t(data.frame(fdr_p_values))
+#   colnames(fdr_df) <- names
+#   write.table(fdr_df, "/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/eng_fdr_p_values.csv")
+# }

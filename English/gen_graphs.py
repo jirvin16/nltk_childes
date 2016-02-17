@@ -65,63 +65,65 @@ for child in sorted_name_list:
 
 # Plot the data nicely    
 color_list = ['b','g','r','c','m','y','k']
-x = 7
-if(x == 0):
-	measurement = "N.child"
-	measurement_name = "Number of Words Used"
-elif(x == 1):
-	measurement = "H.child.S"
-	measurement_name = "Lexical Diversity"
-elif(x == 2):
-	measurement = "H.child.I"
-	measurement_name = "Inflectional Diversity"
-elif(x == 3):
-	measurement = "Schild"
-	measurement_name = "Syntactic Diversity"
-elif(x == 4):
-	measurement = "N.mother"
-	measurement_name = "Number of Words Used"
-elif(x == 5):
-	measurement = "H.mother.S"
-	measurement_name = "Lexical Diversity"
-elif(x == 6):
-	measurement = "H.mother.I"
-	measurement_name = "Inflectional Diversity"
-elif(x == 7):
-	measurement = "Smother"
-	measurement_name = "Syntactic Diversity"
-if(x <= 3):
-	title = "Child Evolution of " + measurement_name
-else:
-	title = "Mother Evolution of " + measurement_name
-i = 0
-plt.figure(figsize=(25,15))
-plt.title(title, fontsize = 30, y = 1.03)
-xlab= plt.xlabel('Age (days)', fontsize = 20)
-ylab = plt.ylabel(measurement_name, fontsize = 20)
+for x in range(8):
+	if(x == 0):
+		measurement = "N.child"
+		measurement_name = "Number of Words Used"
+	elif(x == 1):
+		measurement = "H.child.S"
+		measurement_name = "Lexical Diversity"
+	elif(x == 2):
+		measurement = "H.child.I"
+		measurement_name = "Inflectional Diversity"
+	elif(x == 3):
+		measurement = "Schild"
+		measurement_name = "MLU"
+	elif(x == 4):
+		measurement = "N.mother"
+		measurement_name = "Number of Words Used"
+	elif(x == 5):
+		measurement = "H.mother.S"
+		measurement_name = "Lexical Diversity"
+	elif(x == 6):
+		measurement = "H.mother.I"
+		measurement_name = "Inflectional Diversity"
+	elif(x == 7):
+		measurement = "Smother"
+		measurement_name = "MLU"
+	if(x <= 3):
+		title = "Child Evolution of " + measurement_name
+	else:
+		title = "Mother Evolution of " + measurement_name
+	i = 0
+	plt.figure(figsize=(25,15))
+	plt.title(title, fontsize = 30, y = 1.03)
+	xlab= plt.xlabel('Age (days)', fontsize = 25)
+	ylab = plt.ylabel(measurement_name, fontsize = 25)
 
-lines = []
-for child in sorted_name_list:
-    line, =plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement], linestyle= '-' if i < len(color_list) else '--', color=color_list[i % len(color_list)], label=child)
-    lines.append(line)
-    i += 1;
-    
-plt.legend(handles=lines, loc = 4)
-if(x == 0):
-	plt.savefig('nwords_child_evolution.png')
-elif(x == 1):
-	plt.savefig('lexical_child_evolution.png')
-elif(x == 2):
-	plt.savefig('inflectional_child_evolution.png')
-elif(x == 3):
-	plt.savefig('syntactic_child_evolution.png')
-elif(x == 4):
-	plt.savefig('nwords_mother_evolution.png')
-elif(x == 5):
-	plt.savefig('lexical_mother_evolution.png')
-elif(x == 6):
-	plt.savefig('inflectional_mother_evolution.png')
-elif(x == 7):
-	plt.savefig('syntactic_mother_evolution.png')
+	lines = []
+	for child in sorted_name_list:
+	    line, =plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement], linestyle= '-' if i < len(color_list) else '--', color=color_list[i % len(color_list)], label=child, linewidth = 3.5)
+	    lines.append(line)
+	    i += 1;
+
+	plt.tick_params(axis='both', which='major', labelsize=20, pad = 15)
+	    
+	plt.legend(handles=lines, loc = 4)
+	if(x == 0):
+		plt.savefig('nwords_child_evolution.png')
+	elif(x == 1):
+		plt.savefig('lexical_child_evolution.png')
+	elif(x == 2):
+		plt.savefig('inflectional_child_evolution.png')
+	elif(x == 3):
+		plt.savefig('syntactic_child_evolution.png')
+	elif(x == 4):
+		plt.savefig('nwords_mother_evolution.png')
+	elif(x == 5):
+		plt.savefig('lexical_mother_evolution.png')
+	elif(x == 6):
+		plt.savefig('inflectional_mother_evolution.png')
+	elif(x == 7):
+		plt.savefig('syntactic_mother_evolution.png')
 
 # 5s to run
