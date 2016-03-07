@@ -138,8 +138,9 @@ first_run = FALSE
 options(digits=22)
 CCM_boot_child_list <- list()
 CCM_boot_mother_list <- list()
-formal_measurement_names<- c("Number of Child Words", "Child Lexical Diversity", "Child Inflectional Diversity", "Child Syntactic Diversity",
-                             "Number of Mother Words", "Mother Lexical Diversity", "Mother Inflectional Diversity", "Mother Syntactic Diversity")
+
+formal_measurement_names<- c("Child Number of Words", "Child Lexical Diversity", "Child Inflectional Diversity", "Child MLU",
+                             "Mother Number of Words", "Mother Lexical Diversity", "Mother Inflectional Diversity", "Mother MLU")
 if(first_run) {
   # Store to adjust after computation
   p_values <- c()
@@ -268,8 +269,8 @@ for(i in 1:(length(formal_measurement_names)/2)) {
         
         # Add +/- 1 standard error
         matlines(CCM_boot_mother$Lobs, cbind(CCM_boot_mother$rho-CCM_boot_mother$sdevrho,CCM_boot_mother$rho+CCM_boot_mother$sdevrho), lty=3, col=2)
-        c_m <- format(round(fdr_p_values[[2*index-1]],3), nsmall = 3)
-        m_c <- format(round(fdr_p_values[[2*index]],3), nsmall = 3)
+        c_m <- format(round(fdr_p_values[[2*index-1]],3), digits = 3)
+        m_c <- format(round(fdr_p_values[[2*index]],3), digits = 3)
         
         # Change p value shown if smaller than 0.001
         c_m_legend <- if(fdr_p_values[[2*index-1]] > 0.000) paste(", p =", c_m) else ", p < 0.001"
