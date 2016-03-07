@@ -150,7 +150,6 @@ if(first_run) {
   # Get CCM_boot_child_list from file
   for(i in 1:(length(formal_measurement_names)/2)) {
     for(j in 1:(length(formal_measurement_names)/2)) {
-      if(i != j) {
         directory_name <- paste(gsub(" ", "_",formal_measurement_names[[i]]), "and" ,gsub(" ", "_",formal_measurement_names[[j + length(formal_measurement_names)/2]]), sep = "_")
         dirname = paste("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/cross_CCM_boot_child_data/", directory_name, sep="")
         filenames <- list.files(dirname)
@@ -162,14 +161,12 @@ if(first_run) {
           CCM_boot_child_list[[index]][[k]] <- file_content
         }
         index <- index + 1
-      }
     }
   }
   index <- 1
   # Get CCM_boot_mother_list from file
   for(i in 1:(length(formal_measurement_names)/2)) {
     for(j in 1:(length(formal_measurement_names)/2)) {
-      if(i != j) {
         directory_name <- paste(gsub(" ", "_",formal_measurement_names[[i]]), "and" ,gsub(" ", "_",formal_measurement_names[[j + length(formal_measurement_names)/2]]), sep = "_")
         dirname = paste("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/cross_CCM_boot_mother_data/", directory_name, sep="")
         filenames <- list.files(dirname)
@@ -181,7 +178,6 @@ if(first_run) {
           CCM_boot_mother_list[[index]][[k]] <- file_content
         }
         index <- index + 1
-      }
     }
   }
   # Get fdr_p_values from file
@@ -196,7 +192,6 @@ pic_names <- c("N_Words", "Lexical", "Inflectional", "Syntactic")
 index <- 1
 for(i in 1:(length(formal_measurement_names)/2)) {
   for(j in 1:(length(formal_measurement_names)/2)) {
-    if(i != j) {
       #Check data for nonlinear signal that is not dominated by noise
       #Checks whether predictive ability of processes declines with increasing time distance
       ptm <- proc.time()
@@ -285,7 +280,6 @@ for(i in 1:(length(formal_measurement_names)/2)) {
       print(index)
       index <- index + 1
       print(proc.time() - ptm)
-    }
   }
 }
 
@@ -296,7 +290,6 @@ if(first_run) {
   dir.create("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/cross_CCM_boot_child_data", showWarnings = FALSE)
   for(i in 1:(length(formal_measurement_names)/2)) {
     for(j in 1:(length(formal_measurement_names)/2)) {
-      if(i != j) {
         directory_name <- paste(gsub(" ", "_",formal_measurement_names[[i]]), "and" ,gsub(" ", "_",formal_measurement_names[[j + length(formal_measurement_names)/2]]), sep = "_")
         dirname = paste("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/cross_CCM_boot_child_data/", directory_name, sep="")
         dir.create(dirname, showWarnings = FALSE)
@@ -304,7 +297,6 @@ if(first_run) {
           write(CCM_boot_child_list[[index]][[k]], paste(dirname, "/", names(CCM_boot_child_list[[index]])[[k]], sep = ""))
         }
         index <- index + 1
-      }
     }
   }
   index <- 1
@@ -312,7 +304,6 @@ if(first_run) {
   dir.create("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/cross_CCM_boot_mother_data", showWarnings = FALSE)
   for(i in 1:(length(formal_measurement_names)/2)) {
     for(j in 1:(length(formal_measurement_names)/2)) {
-      if(i != j) {
         directory_name <- paste(gsub(" ", "_",formal_measurement_names[[i]]), "and" ,gsub(" ", "_",formal_measurement_names[[j + length(formal_measurement_names)/2]]), sep = "_")
         dirname = paste("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/cross_CCM_boot_mother_data/", directory_name, sep="")
         dir.create(dirname, showWarnings = FALSE)
@@ -320,7 +311,6 @@ if(first_run) {
           write(CCM_boot_mother_list[[index]][[k]], paste(dirname, "/", names(CCM_boot_mother_list[[index]])[[k]], sep = ""))
         }
         index <- index + 1
-      }
     }
   }
   # Store the fdr_p_values
