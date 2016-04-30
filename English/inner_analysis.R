@@ -235,7 +235,7 @@ for(i in 1:(length(formal_measurement_names)/2)) {
       child_signal_1 <- SSR_check_signal(A=child_series_1, E=child_E_1, tau=child_T_1, predsteplist=1:10)
       child_signal_plot_1 <- child_signal_1$predatout
       
-      child_signal_2 <- SSR_check_signal(A=child_series_1, E=child_E_2, tau=child_T_2, predsteplist=1:10)
+      child_signal_2 <- SSR_check_signal(A=child_series_2, E=child_E_2, tau=child_T_2, predsteplist=1:10)
       child_signal_plot_2 <- child_signal_2$predatout
       
       mother_signal_1 <- SSR_check_signal(A=mother_series_1, E=mother_E_1, tau=mother_T_1, predsteplist=1:10)
@@ -246,17 +246,26 @@ for(i in 1:(length(formal_measurement_names)/2)) {
       
       # Plot the signal only on first run
       if(first_run) {
-        jpeg(paste(pic_names[[i]], pic_names[[j]], "Signal.jpg", sep="_"))
-        plot <- cbind(child_signal_plot_1$rho, mother_signal_plot_1$rho)
+        # Plot Child Signal
+        jpeg(paste("Child", pic_names[[i]], pic_names[[j]], "Signal.jpg", sep="_"))
+        plot <- cbind(child_signal_plot_1$rho, child_signal_plot_2$rho)
         matplot(1:10, plot, type="l", col=1:2, lty=1:2, xlab="Prediction Steps", ylab=expression(rho), lwd=2)
-        title(main = paste(formal_measurement_names[[i]], "and" ,formal_measurement_names[[j + length(formal_measurement_names)/2]], sep = " "))
-        legend("bottomleft", c(formal_measurement_names[[i]], formal_measurement_names[[j + length(formal_measurement_names)/2]]), lty=1:2, col=1:2, lwd=2, bty="n")
+        title(main = paste(formal_measurement_names[[i]], "and" ,formal_measurement_names[[j]], sep = " "))
+        legend("bottomleft", c(formal_measurement_names[[i]], formal_measurement_names[[j]]), lty=1:2, col=1:2, lwd=2, bty="n")
+        dev.off()
+        # Plot Mother Signal
+        jpeg(paste("Mother", pic_names[[i]], pic_names[[j]], "Signal.jpg", sep="_"))
+        plot <- cbind(mother_signal_plot_1$rho, mother_signal_plot_2$rho)
+        matplot(1:10, plot, type="l", col=1:2, lty=1:2, xlab="Prediction Steps", ylab=expression(rho), lwd=2)
+        title(main = paste(formal_measurement_names[[i + length(formal_measurement_names)/2]], "and" ,formal_measurement_names[[j + length(formal_measurement_names)/2]], sep = " "))
+        legend("bottomleft", c(formal_measurement_names[[i + length(formal_measurement_names)/2]], formal_measurement_names[[j + length(formal_measurement_names)/2]]), lty=1:2, col=1:2, lwd=2, bty="n")
         dev.off()
       }
-      
-      # Does child series "cause" mother series?
       # Only perform computation once, set first_run 
       # to false after running once
+      
+      # Does child series1 "cause" child series2?
+      # Does child series2 "cause" child series1?
       print(index)
       if(first_run) {
         CCM_boot_child_1 <- CCM_boot(child_series_1, child_series_2, child_E_1, tau=child_T_1, iterations=1) # CHANGE THIS TO 1000
@@ -270,7 +279,8 @@ for(i in 1:(length(formal_measurement_names)/2)) {
         CCM_boot_child_2 <- CCM_boot_child_list_2[[index]]  
       }
       
-      # Does mother series "cause" child series?
+      # Does mother series1 "cause" mother series2?
+      # Does mother series2 "cause" mother series1?
       if(first_run) {
         CCM_boot_mother_1 <- CCM_boot(mother_series_1, mother_series_2, mother_E_1, tau=mother_T_1, iterations=1) # CHANGE THIS TO 1000
         CCM_boot_mother_2 <- CCM_boot(mother_series_2, mother_series_1, mother_E_2, tau=mother_T_2, iterations=1) # CHANGE THIS TO 1000
@@ -296,53 +306,53 @@ for(i in 1:(length(formal_measurement_names)/2)) {
       if(!first_run) {
         plotxlimits <- range(c(CCM_boot_child_1$Lobs, CCM_boot_child_2$Lobs))
         
-        jpeg(paste(pic_names[[i]], pic_names[[j]], "Cause.jpg", sep="_"))
+        jpeg(paste("Child", pic_names[[i]], pic_names[[j]], "Cause.jpg", sep="_"))
         
-        # Plot "child series causes mother series"
+        # Plot "child series1 causes child series2"
         plot(CCM_boot_child_1$Lobs, CCM_boot_child_1$rho, type="l", col=1, lwd=2, xlim=c(plotxlimits[1], plotxlimits[2]), ylim=c(0,1), xlab="Library Length", ylab=expression(rho))
-        title(main = paste(formal_measurement_names[[i]], "and" ,formal_measurement_names[[j + length(formal_measurement_names)/2]], sep = " "))
+        title(main = paste(formal_measurement_names[[i]], "and" ,formal_measurement_names[[j]], sep = " "))
         
         # Add +/- 1 standard error
         matlines(CCM_boot_child_1$Lobs, cbind(CCM_boot_child_1$rho-CCM_boot_child_1$sdevrho, CCM_boot_child_1$rho+CCM_boot_child_1$sdevrho), lty=3, col=1)
         
-        # Plot "mother inflection causes child inflection"
+        # Plot "child series2 causes child series1"
         lines(CCM_boot_child_2$Lobs, CCM_boot_child_2$rho, type="l", col=2, lty=2, lwd=2)
         
         # Add +/- 1 standard error
         matlines(CCM_boot_child_2$Lobs, cbind(CCM_boot_child_2$rho-CCM_boot_child_2$sdevrho,CCM_boot_child_2$rho+CCM_boot_child_2$sdevrho), lty=3, col=2)
-        c_m <- format(round(fdr_p_values[[2*index-1]],3), digits = 3)
-        m_c <- format(round(fdr_p_values[[2*index]],3), digits = 3)
+        c1_c2 <- format(round(fdr_p_values[[2*index-1]],3), digits = 3)
+        c2_c1 <- format(round(fdr_p_values[[2*index]],3), digits = 3)
         
         # Change p value shown if smaller than 0.001
-        c_m_legend <- if(fdr_p_values[[2*index-1]] > 0.000) paste(", p =", c_m) else ", p < 0.001"
-        m_c_legend <- if(fdr_p_values[[2*index]] > 0.000) paste(", p =", m_c) else ", p < 0.001"
-        legend("topleft", c(paste("Child drives Mother", c_m_legend, sep = "" ) , paste("Mother drives Child", m_c_legend, sep = "" )), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
+        c1_c2_legend <- if(fdr_p_values[[2*index-1]] > 0.000) paste(", p =", c1_c2) else ", p < 0.001"
+        c2_c1_legend <- if(fdr_p_values[[2*index]] > 0.000) paste(", p =", c2_c1) else ", p < 0.001"
+        legend("topleft", c(paste(formal_measurement_names[[i]], " drives ", formal_measurement_names[[j]], c1_c2_legend, sep = "") , paste(formal_measurement_names[[j]], " drives ", formal_measurement_names[[i]], c2_c1_legend, sep = "")), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
         dev.off()
         
         
         plotxlimits <- range(c(CCM_boot_mother_1$Lobs, CCM_boot_mother_2$Lobs))
         
-        jpeg(paste(pic_names[[i]], pic_names[[j]], "Cause.jpg", sep="_"))
+        jpeg(paste("Mother", pic_names[[i]], pic_names[[j]], "Cause.jpg", sep="_"))
         
-        # Plot "child series causes mother series"
+        # Plot "mother series1 causes mother series2"
         plot(CCM_boot_mother_1$Lobs, CCM_boot_mother_1$rho, type="l", col=1, lwd=2, xlim=c(plotxlimits[1], plotxlimits[2]), ylim=c(0,1), xlab="Library Length", ylab=expression(rho))
-        title(main = paste(formal_measurement_names[[i]], "and" ,formal_measurement_names[[j + length(formal_measurement_names)/2]], sep = " "))
+        title(main = paste(formal_measurement_names[[i + length(formal_measurement_names)/2]], "and" ,formal_measurement_names[[j + length(formal_measurement_names)/2]], sep = " "))
         
         # Add +/- 1 standard error
         matlines(CCM_boot_mother_1$Lobs, cbind(CCM_boot_mother_1$rho-CCM_boot_mother_1$sdevrho, CCM_boot_mother_1$rho+CCM_boot_mother_1$sdevrho), lty=3, col=1)
         
-        # Plot "mother inflection causes child inflection"
+        # Plot "mother series2 causes mother series1"
         lines(CCM_boot_mother_2$Lobs, CCM_boot_mother_2$rho, type="l", col=2, lty=2, lwd=2)
         
         # Add +/- 1 standard error
         matlines(CCM_boot_mother_2$Lobs, cbind(CCM_boot_mother_2$rho-CCM_boot_mother_2$sdevrho,CCM_boot_mother_2$rho+CCM_boot_mother_2$sdevrho), lty=3, col=2)
-        c_m <- format(round(fdr_p_values[[2*index-1]],3), digits = 3)
-        m_c <- format(round(fdr_p_values[[2*index]],3), digits = 3)
+        m1_m2 <- format(round(fdr_p_values[[2*index-1]],3), digits = 3)
+        m2_m1 <- format(round(fdr_p_values[[2*index]],3), digits = 3)
         
         # Change p value shown if smaller than 0.001
-        c_m_legend <- if(fdr_p_values[[2*index-1]] > 0.000) paste(", p =", c_m) else ", p < 0.001"
-        m_c_legend <- if(fdr_p_values[[2*index]] > 0.000) paste(", p =", m_c) else ", p < 0.001"
-        legend("topleft", c(paste("Child drives Mother", c_m_legend, sep = "" ) , paste("Mother drives Child", m_c_legend, sep = "" )), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
+        m1_m2_legend <- if(fdr_p_values[[2*index-1]] > 0.000) paste(", p =", m1_m2) else ", p < 0.001"
+        m2_m1_legend <- if(fdr_p_values[[2*index]] > 0.000) paste(", p =", m2_m1) else ", p < 0.001"
+        legend("topleft", c(paste(formal_measurement_names[[i + length(formal_measurement_names)/2]], " drives ", formal_measurement_names[[j + length(formal_measurement_names)/2]], m1_m2_legend, sep = "") , paste(formal_measurement_names[[j + length(formal_measurement_names)/2]], " drives ", formal_measurement_names[[i + length(formal_measurement_names)/2]], m2_m1_legend, sep = "")), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
         dev.off()
         
       }
@@ -421,7 +431,7 @@ if(first_run) {
     }
   }
   
-  
+  # TODO: Read in p_values from /Users/dspoka/Desktop/moscoso/nltk_childes/English/data_directory/cross_eng_fdr_p_values.csv and add to p_values before fdr_adjustment
   
   # Store the fdr_p_values
   fdr_p_values <- (p.adjust(p_values, method="fdr"))
