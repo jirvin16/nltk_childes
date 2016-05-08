@@ -2,6 +2,8 @@ library(multispatialCCM)
 library(tseriesChaos)
 library(cluster)
 
+setwd("/Users/dspoka/Desktop/moscoso/nltk_childes/English/")
+
 df <- read.table("/Users/dspoka/Desktop/moscoso/nltk_childes/English/data_directory/morph-eng.csv", header = TRUE)
 
 sorted_df <- df[order(df[,'Child'],df[,'Age']), ]
@@ -131,10 +133,12 @@ for(measurement in measurement_names) {
 
 rownames(joint_tau_embed) <- c("T", "E")
 
+write.table(joint_tau_embed, "/Users/dspoka/Desktop/moscoso/nltk_childes/English/data_directory/joint_tau_embed_inner.csv", sep = ",")
+
 # Flag to set if running for first time to perform large
 # calculations and store the data.
 # Set to false to avoid long computation again.
-first_run = TRUE
+first_run = FALSE
 options(digits=22)
 CCM_boot_child_list_1 <- list()
 CCM_boot_child_list_2 <- list()
@@ -143,6 +147,10 @@ CCM_boot_mother_list_2 <- list()
 
 formal_measurement_names<- c("Child Number of Words", "Child Lexical Diversity", "Child Inflectional Diversity", "Child MLU",
                              "Mother Number of Words", "Mother Lexical Diversity", "Mother Inflectional Diversity", "Mother MLU")
+
+graph_names <- c("Loquacity", "Lexical Diversity", "Inflectional Diversity", "MLU",
+                 "Mother Loquacity", "Mother Lexical Diversity", "Mother Inflectional Diversity", "Mother MLU")
+
 if(first_run) {
   # Store to adjust after computation
   p_values <- c()
@@ -154,15 +162,25 @@ if(first_run) {
   for(i in 1:(length(formal_measurement_names)/2)) {
     for(j in 1:(length(formal_measurement_names)/2)) {
       if(i < j){
-        directory_name <- paste(gsub(" ", "_",formal_measurement_names[[i]]), "and" ,gsub(" ", "_",formal_measurement_names[[j]]), sep = "_")
-        dirname = paste("/Users/dspoka/Desktop/moscoso/nltk_childes/English/inner_CCM_boot_child_data/", directory_name, sep="")
-        filenames <- list.files(dirname)
-        CCM_boot_child_list[[index]] <- vector("list", length(filenames))
-        names(CCM_boot_child_list[[index]]) <- filenames
-        for(k in 1:(length(filenames))) {
-          path <- paste(dirname, "/", filenames[[k]], sep = "")
-          file_content <- scan(path)
-          CCM_boot_child_list[[index]][[k]] <- file_content
+        directory_name_1 <- paste(gsub(" ", "_",formal_measurement_names[[i]]), "and" ,gsub(" ", "_",formal_measurement_names[[j]]), sep = "_")
+        dirname_1 = paste("/Users/dspoka/Desktop/moscoso/nltk_childes/English/inner_CCM_boot_child_data_1/", directory_name_1, sep="")
+        filenames_1 <- list.files(dirname_1)
+        CCM_boot_child_list_1[[index]] <- vector("list", length(filenames_1))
+        names(CCM_boot_child_list_1[[index]]) <- filenames_1
+        for(k in 1:(length(filenames_1))) {
+          path_1 <- paste(dirname_1, "/", filenames_1[[k]], sep = "")
+          file_content_1 <- scan(path_1)
+          CCM_boot_child_list_1[[index]][[k]] <- file_content_1
+        }
+        directory_name_2 <- paste(gsub(" ", "_",formal_measurement_names[[j]]), "and" ,gsub(" ", "_",formal_measurement_names[[i]]), sep = "_")
+        dirname_2 = paste("/Users/dspoka/Desktop/moscoso/nltk_childes/English/inner_CCM_boot_child_data_2/", directory_name_2, sep="")
+        filenames_2 <- list.files(dirname_2)
+        CCM_boot_child_list_2[[index]] <- vector("list", length(filenames_2))
+        names(CCM_boot_child_list_2[[index]]) <- filenames_2
+        for(k in 1:(length(filenames_2))) {
+          path_2 <- paste(dirname_2, "/", filenames_2[[k]], sep = "")
+          file_content_2 <- scan(path_2)
+          CCM_boot_child_list_2[[index]][[k]] <- file_content_2
         }
         index <- index + 1
       }
@@ -174,16 +192,25 @@ if(first_run) {
   for(i in 1:(length(formal_measurement_names)/2)) {
     for(j in 1:(length(formal_measurement_names)/2)) {
       if(i < j){
-        directory_name <- paste(gsub(" ", "_",formal_measurement_names[[i + length(formal_measurement_names)/2]]), "and" ,gsub(" ", "_",formal_measurement_names[[j + length(formal_measurement_names)/2]]), sep = "_")
-        #QUESTION you didnt have data directory in here before
-        dirname = paste("/Users/dspoka/Desktop/moscoso/nltk_childes/English/inner_CCM_boot_mother_data/", directory_name, sep="")
-        filenames <- list.files(dirname)
-        CCM_boot_mother_list[[index]] <- vector("list", length(filenames))
-        names(CCM_boot_mother_list[[index]]) <- filenames
-        for(k in 1:(length(filenames))) {
-          path <- paste(dirname, "/", filenames[[k]], sep = "")
-          file_content <- scan(path)
-          CCM_boot_mother_list[[index]][[k]] <- file_content
+        directory_name_1 <- paste(gsub(" ", "_",formal_measurement_names[[i+ length(formal_measurement_names)/2]]), "and" ,gsub(" ", "_",formal_measurement_names[[j+ length(formal_measurement_names)/2]]), sep = "_")
+        dirname_1 = paste("/Users/dspoka/Desktop/moscoso/nltk_childes/English/inner_CCM_boot_mother_data_1/", directory_name_1, sep="")
+        filenames_1 <- list.files(dirname_1)
+        CCM_boot_mother_list_1[[index]] <- vector("list", length(filenames_1))
+        names(CCM_boot_mother_list_1[[index]]) <- filenames_1
+        for(k in 1:(length(filenames_1))) {
+          path_1 <- paste(dirname_1, "/", filenames_1[[k]], sep = "")
+          file_content_1 <- scan(path_1)
+          CCM_boot_mother_list_1[[index]][[k]] <- file_content_1
+        }
+        directory_name_2 <- paste(gsub(" ", "_",formal_measurement_names[[j + length(formal_measurement_names)/2]]), "and" ,gsub(" ", "_",formal_measurement_names[[i + length(formal_measurement_names)/2]]), sep = "_")
+        dirname_2 = paste("/Users/dspoka/Desktop/moscoso/nltk_childes/English/inner_CCM_boot_mother_data_2/", directory_name_2, sep="")
+        filenames_2 <- list.files(dirname_2)
+        CCM_boot_mother_list_2[[index]] <- vector("list", length(filenames_2))
+        names(CCM_boot_mother_list_2[[index]]) <- filenames_2
+        for(k in 1:(length(filenames_2))) {
+          path_2 <- paste(dirname_2, "/", filenames_2[[k]], sep = "")
+          file_content_2 <- scan(path_2)
+          CCM_boot_mother_list_2[[index]][[k]] <- file_content_2
         }
         index <- index + 1
       }
@@ -268,8 +295,8 @@ for(i in 1:(length(formal_measurement_names)/2)) {
       # Does child series2 "cause" child series1?
       print(index)
       if(first_run) {
-        CCM_boot_child_1 <- CCM_boot(child_series_1, child_series_2, child_E_1, tau=child_T_1, iterations=1) # CHANGE THIS TO 1000
-        CCM_boot_child_2 <- CCM_boot(child_series_2, child_series_1, child_E_2, tau=child_T_2, iterations=1) # CHANGE THIS TO 1000
+        CCM_boot_child_1 <- CCM_boot(child_series_1, child_series_2, child_E_1, tau=child_T_1, iterations=1000) # CHANGE THIS TO 1000
+        CCM_boot_child_2 <- CCM_boot(child_series_2, child_series_1, child_E_2, tau=child_T_2, iterations=1000) # CHANGE THIS TO 1000
         CCM_boot_child_list_1[[index]] <- CCM_boot_child_1
         CCM_boot_child_list_2[[index]] <- CCM_boot_child_2
         
@@ -282,8 +309,8 @@ for(i in 1:(length(formal_measurement_names)/2)) {
       # Does mother series1 "cause" mother series2?
       # Does mother series2 "cause" mother series1?
       if(first_run) {
-        CCM_boot_mother_1 <- CCM_boot(mother_series_1, mother_series_2, mother_E_1, tau=mother_T_1, iterations=1) # CHANGE THIS TO 1000
-        CCM_boot_mother_2 <- CCM_boot(mother_series_2, mother_series_1, mother_E_2, tau=mother_T_2, iterations=1) # CHANGE THIS TO 1000
+        CCM_boot_mother_1 <- CCM_boot(mother_series_1, mother_series_2, mother_E_1, tau=mother_T_1, iterations=1000) # CHANGE THIS TO 1000
+        CCM_boot_mother_2 <- CCM_boot(mother_series_2, mother_series_1, mother_E_2, tau=mother_T_2, iterations=1000) # CHANGE THIS TO 1000
         CCM_boot_mother_list_1[[index]] <- CCM_boot_mother_1
         CCM_boot_mother_list_2[[index]] <- CCM_boot_mother_2
       }
@@ -310,7 +337,7 @@ for(i in 1:(length(formal_measurement_names)/2)) {
         
         # Plot "child series1 causes child series2"
         plot(CCM_boot_child_1$Lobs, CCM_boot_child_1$rho, type="l", col=1, lwd=2, xlim=c(plotxlimits[1], plotxlimits[2]), ylim=c(0,1), xlab="Library Length", ylab=expression(rho))
-        title(main = paste(formal_measurement_names[[i]], "and" ,formal_measurement_names[[j]], sep = " "))
+        title(main = paste(graph_names[[i]], "and" ,graph_names[[j]], sep = " "))
         
         # Add +/- 1 standard error
         matlines(CCM_boot_child_1$Lobs, cbind(CCM_boot_child_1$rho-CCM_boot_child_1$sdevrho, CCM_boot_child_1$rho+CCM_boot_child_1$sdevrho), lty=3, col=1)
@@ -326,7 +353,7 @@ for(i in 1:(length(formal_measurement_names)/2)) {
         # Change p value shown if smaller than 0.001
         c1_c2_legend <- if(fdr_p_values[[2*index-1]] > 0.000) paste(", p =", c1_c2) else ", p < 0.001"
         c2_c1_legend <- if(fdr_p_values[[2*index]] > 0.000) paste(", p =", c2_c1) else ", p < 0.001"
-        legend("topleft", c(paste(formal_measurement_names[[i]], " drives ", formal_measurement_names[[j]], c1_c2_legend, sep = "") , paste(formal_measurement_names[[j]], " drives ", formal_measurement_names[[i]], c2_c1_legend, sep = "")), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
+        legend("topleft", c(paste(graph_names[[i]], " drives ", graph_names[[j]], c1_c2_legend, sep = "") , paste(graph_names[[j]], " drives ", graph_names[[i]], c2_c1_legend, sep = "")), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
         dev.off()
         
         
@@ -336,7 +363,7 @@ for(i in 1:(length(formal_measurement_names)/2)) {
         
         # Plot "mother series1 causes mother series2"
         plot(CCM_boot_mother_1$Lobs, CCM_boot_mother_1$rho, type="l", col=1, lwd=2, xlim=c(plotxlimits[1], plotxlimits[2]), ylim=c(0,1), xlab="Library Length", ylab=expression(rho))
-        title(main = paste(formal_measurement_names[[i + length(formal_measurement_names)/2]], "and" ,formal_measurement_names[[j + length(formal_measurement_names)/2]], sep = " "))
+        title(main = paste(graph_names[[i + length(graph_names)/2]], "and" ,graph_names[[j + length(graph_names)/2]], sep = " "))
         
         # Add +/- 1 standard error
         matlines(CCM_boot_mother_1$Lobs, cbind(CCM_boot_mother_1$rho-CCM_boot_mother_1$sdevrho, CCM_boot_mother_1$rho+CCM_boot_mother_1$sdevrho), lty=3, col=1)
@@ -352,7 +379,7 @@ for(i in 1:(length(formal_measurement_names)/2)) {
         # Change p value shown if smaller than 0.001
         m1_m2_legend <- if(fdr_p_values[[2*index-1]] > 0.000) paste(", p =", m1_m2) else ", p < 0.001"
         m2_m1_legend <- if(fdr_p_values[[2*index]] > 0.000) paste(", p =", m2_m1) else ", p < 0.001"
-        legend("topleft", c(paste(formal_measurement_names[[i + length(formal_measurement_names)/2]], " drives ", formal_measurement_names[[j + length(formal_measurement_names)/2]], m1_m2_legend, sep = "") , paste(formal_measurement_names[[j + length(formal_measurement_names)/2]], " drives ", formal_measurement_names[[i + length(formal_measurement_names)/2]], m2_m1_legend, sep = "")), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
+        legend("topleft", c(paste(graph_names[[i + length(graph_names)/2]], " drives ", graph_names[[j + length(graph_names)/2]], m1_m2_legend, sep = "") , paste(graph_names[[j + length(graph_names)/2]], " drives ", graph_names[[i + length(graph_names)/2]], m2_m1_legend, sep = "")), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
         dev.off()
         
       }
