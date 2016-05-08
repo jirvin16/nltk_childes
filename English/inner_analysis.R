@@ -336,8 +336,8 @@ for(i in 1:(length(formal_measurement_names)/2)) {
         jpeg(paste("Child", pic_names[[i]], pic_names[[j]], "Cause.jpg", sep="_"))
         
         # Plot "child series1 causes child series2"
-        plot(CCM_boot_child_1$Lobs, CCM_boot_child_1$rho, type="l", col=1, lwd=2, xlim=c(plotxlimits[1], plotxlimits[2]), ylim=c(0,1), xlab="Library Length", ylab=expression(rho))
-        title(main = paste(graph_names[[i]], "and" ,graph_names[[j]], sep = " "))
+        plot(CCM_boot_child_1$Lobs, CCM_boot_child_1$rho, type="l", col=1, lwd=2, xlim=c(plotxlimits[1], plotxlimits[2]), ylim=c(0,1), xlab="Library Length", ylab=expression(rho), cex.axis = 1.2, cex.lab = 1.3)
+        title(main = paste(graph_names[[i]], "and" ,graph_names[[j]], sep = " "), cex.main = 1.5)
         
         # Add +/- 1 standard error
         matlines(CCM_boot_child_1$Lobs, cbind(CCM_boot_child_1$rho-CCM_boot_child_1$sdevrho, CCM_boot_child_1$rho+CCM_boot_child_1$sdevrho), lty=3, col=1)
@@ -353,7 +353,7 @@ for(i in 1:(length(formal_measurement_names)/2)) {
         # Change p value shown if smaller than 0.001
         c1_c2_legend <- if(fdr_p_values[[2*index-1]] > 0.000) paste(", p =", c1_c2) else ", p < 0.001"
         c2_c1_legend <- if(fdr_p_values[[2*index]] > 0.000) paste(", p =", c2_c1) else ", p < 0.001"
-        legend("topleft", c(paste(graph_names[[i]], " drives ", graph_names[[j]], c1_c2_legend, sep = "") , paste(graph_names[[j]], " drives ", graph_names[[i]], c2_c1_legend, sep = "")), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
+        legend("topleft", c(paste(graph_names[[i]], " drives ", graph_names[[j]], c1_c2_legend, sep = "") , paste(graph_names[[j]], " drives ", graph_names[[i]], c2_c1_legend, sep = "")), lty=c(1,2), col=c(1,2), lwd=2, bty="n", pt.cex = 1, cex = 1.15)
         dev.off()
         
         
@@ -362,8 +362,8 @@ for(i in 1:(length(formal_measurement_names)/2)) {
         jpeg(paste("Mother", pic_names[[i]], pic_names[[j]], "Cause.jpg", sep="_"))
         
         # Plot "mother series1 causes mother series2"
-        plot(CCM_boot_mother_1$Lobs, CCM_boot_mother_1$rho, type="l", col=1, lwd=2, xlim=c(plotxlimits[1], plotxlimits[2]), ylim=c(0,1), xlab="Library Length", ylab=expression(rho))
-        title(main = paste(graph_names[[i + length(graph_names)/2]], "and" ,graph_names[[j + length(graph_names)/2]], sep = " "))
+        plot(CCM_boot_mother_1$Lobs, CCM_boot_mother_1$rho, type="l", col=1, lwd=2, xlim=c(plotxlimits[1], plotxlimits[2]), ylim=c(0,1), xlab="Library Length", ylab=expression(rho), cex.axis = 1.2, cex.lab = 1.3)
+        title(main = paste(graph_names[[i + length(graph_names)/2]], "and" ,graph_names[[j + length(graph_names)/2]], sep = " "), cex.main = 1.5)
         
         # Add +/- 1 standard error
         matlines(CCM_boot_mother_1$Lobs, cbind(CCM_boot_mother_1$rho-CCM_boot_mother_1$sdevrho, CCM_boot_mother_1$rho+CCM_boot_mother_1$sdevrho), lty=3, col=1)
@@ -379,7 +379,7 @@ for(i in 1:(length(formal_measurement_names)/2)) {
         # Change p value shown if smaller than 0.001
         m1_m2_legend <- if(fdr_p_values[[2*index-1]] > 0.000) paste(", p =", m1_m2) else ", p < 0.001"
         m2_m1_legend <- if(fdr_p_values[[2*index]] > 0.000) paste(", p =", m2_m1) else ", p < 0.001"
-        legend("topleft", c(paste(graph_names[[i + length(graph_names)/2]], " drives ", graph_names[[j + length(graph_names)/2]], m1_m2_legend, sep = "") , paste(graph_names[[j + length(graph_names)/2]], " drives ", graph_names[[i + length(graph_names)/2]], m2_m1_legend, sep = "")), lty=c(1,2), col=c(1,2), lwd=2, bty="n")
+        legend("topleft", c(paste(graph_names[[i + length(graph_names)/2]], " drives ", graph_names[[j + length(graph_names)/2]], m1_m2_legend, sep = "") , paste(graph_names[[j + length(graph_names)/2]], " drives ", graph_names[[i + length(graph_names)/2]], m2_m1_legend, sep = "")), lty=c(1,2), col=c(1,2), lwd=2, bty="n", pt.cex = 1, cex = 1.15)
         dev.off()
         
       }
