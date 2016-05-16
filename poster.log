@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  16 MAY 2016 15:06
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  16 MAY 2016 15:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1615,11 +1615,11 @@ File: Syntactic_Cause.jpg Graphic file (type jpg)
 Package pdftex.def Info: Syntactic_Cause.jpg used on input line 182.
 (pdftex.def)             Requested size: 309.57292pt x 309.57867pt.
 
-<loq_results.jpg, id=45, 3713.875pt x 1324.95pt>
+<loq_results.jpg, id=45, 3713.875pt x 1314.9125pt>
 File: loq_results.jpg Graphic file (type jpg)
  <use loq_results.jpg>
 Package pdftex.def Info: loq_results.jpg used on input line 182.
-(pdftex.def)             Requested size: 309.57292pt x 110.4257pt.
+(pdftex.def)             Requested size: 309.57292pt x 109.58914pt.
 
 <lex_results.jpg, id=46, 3713.875pt x 1314.9125pt>
 File: lex_results.jpg Graphic file (type jpg)
@@ -1681,7 +1681,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 183.
 Here is how much of TeX's memory you used:
  18564 strings out of 493315
  340133 string characters out of 6137904
- 486893 words of memory out of 5000000
+ 486895 words of memory out of 5000000
  21539 multiletter control sequences out of 15000+600000
  29933 words of font info for 109 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -1693,7 +1693,7 @@ Here is how much of TeX's memory you used:
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb>
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi17.pfb>
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on poster.pdf (1 page, 2641261 bytes).
+Output written on poster.pdf (1 page, 2699213 bytes).
 PDF statistics:
  110 PDF objects out of 1000 (max. 8388607)
  71 compressed objects within 1 object stream
