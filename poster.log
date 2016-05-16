@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  16 MAY 2016 15:25
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  16 MAY 2016 15:39
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1492,11 +1492,11 @@ File: pred_prey.jpg Graphic file (type jpg)
 Package pdftex.def Info: pred_prey.jpg used on input line 182.
 (pdftex.def)             Requested size: 284.52756pt x 239.83234pt.
 
-<lorenz2.jpg, id=25, 738.76pt x 529.98pt>
-File: lorenz2.jpg Graphic file (type jpg)
- <use lorenz2.jpg>
-Package pdftex.def Info: lorenz2.jpg used on input line 182.
-(pdftex.def)             Requested size: 398.33858pt x 285.7644pt.
+<lorenz2.png, id=25, 593.21625pt x 435.6275pt>
+File: lorenz2.png Graphic file (type png)
+ <use lorenz2.png>
+Package pdftex.def Info: lorenz2.png used on input line 182.
+(pdftex.def)             Requested size: 398.33858pt x 292.52698pt.
 
 <lorenz.png, id=26, 1156.32pt x 890.32625pt>
 File: lorenz.png Graphic file (type png)
@@ -1656,7 +1656,7 @@ Missing character: There is no € in font cmssbx10!
 Missing character: There is no “ in font cmssbx10!
  [1{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
- <./ccs.png> <./ling.jpg> <./pred_prey.jpg> <./lorenz2.jpg> <./lorenz.png> <./n
+ <./ccs.png> <./ling.jpg> <./pred_prey.jpg> <./lorenz2.png> <./lorenz.png> <./n
 words_evolution.png> <./lexical_evolution.png> <./syntactic_evolution.png> <./N
 _Words_Cause.jpg> <./Lexical_Cause.jpg> <./Syntactic_Cause.jpg> <./loq_results.
 jpg> <./lex_results.jpg> <./mlu_results.jpg>]
@@ -1681,7 +1681,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 183.
 Here is how much of TeX's memory you used:
  18564 strings out of 493315
  340133 string characters out of 6137904
- 486895 words of memory out of 5000000
+ 486902 words of memory out of 5000000
  21539 multiletter control sequences out of 15000+600000
  29933 words of font info for 109 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -1693,9 +1693,9 @@ Here is how much of TeX's memory you used:
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi12.pfb>
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi17.pfb>
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on poster.pdf (1 page, 2699213 bytes).
+Output written on poster.pdf (1 page, 3213470 bytes).
 PDF statistics:
- 110 PDF objects out of 1000 (max. 8388607)
+ 111 PDF objects out of 1000 (max. 8388607)
  71 compressed objects within 1 object stream
  17 named destinations out of 1000 (max. 500000)
  125 words of extra memory for PDF output out of 10000 (max. 10000000)
