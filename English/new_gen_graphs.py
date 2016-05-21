@@ -63,7 +63,8 @@ child_split_df = {}
 for child in sorted_name_list:
     child_split_df[child] = sorted_df[sorted_df['Child'] == child]
 
-color_list = [(1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0), (1.0, 1.0, 0.0), (1.0, 0.0, 1.0), (0.0, 1.0, 1.0), (0.0, 0.0, 0.0), (0.0, 0.5019607843137255, 0.0), (0.5019607843137255, 0.0, 0.5019607843137255), (0.5019607843137255, 0.5019607843137255, 0.5019607843137255), (0.7529411764705882, 0.0, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0)]
+# color_list = [(1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0), (1.0, 1.0, 0.0), (1.0, 0.0, 1.0), (0.0, 1.0, 1.0), (0.0, 0.0, 0.0), (0.0, 0.5019607843137255, 0.0), (0.5019607843137255, 0.0, 0.5019607843137255), (0.5019607843137255, 0.5019607843137255, 0.5019607843137255), (0.7529411764705882, 0.0, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0)]
+color_list = [(1.0, 0.0, 0.0), (0.0, 0.0, 1.0)] #, (0.0, 1.0, 0.0)]
 # Plot the data nicely    
 for x in range(4):
 	if(x == 0):
@@ -94,7 +95,15 @@ for x in range(4):
 	for j in range(len(measurement_list)):
 		i = 0
 		for child in sorted_name_list:
-		    line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-' if j == 0 else '-', color=color_list[i % len(color_list)], label=child if j == 1 else child + " mother", linewidth = 3.5)
+		    # line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '--' if j == 0 else '-', color=color_list[i % len(color_list)], label=child if j == 1 else child + " mother", linewidth = 3.5)
+		    if( (child == "ruth" or child == "nic") and j == 1):
+		    	line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-', color= color_list[j], label=child, linewidth = 7)
+		    elif j == 0 and i == 0:
+		    	line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-', color= color_list[j], label="mother", linewidth = 3.5)
+		    elif j == 1 and i == 0:
+		    	line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-', color= color_list[j], label="child", linewidth = 3.5)
+		    else:
+		    	line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-', color= color_list[j], linewidth = 3.5)
 		    lines.append(line)
 		    i += 1;
 
@@ -102,12 +111,12 @@ for x in range(4):
 	plt.legend(handles=lines, loc = 4, prop={'size':17})
 
 	if(x == 0):
-		plt.savefig('nwords_evolution.png')
+		plt.savefig('nwords_evolution2.png')
 	elif(x == 1):
-		plt.savefig('lexical_evolution.png')
+		plt.savefig('lexical_evolution2.png')
 	elif(x == 2):
-		plt.savefig('inflectional_evolution.png')
+		plt.savefig('inflectional_evolution2.png')
 	elif(x == 3):
-		plt.savefig('syntactic_evolution.png')
+		plt.savefig('syntactic_evolution2.png')
 
 # 5s to run
