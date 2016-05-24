@@ -40,6 +40,9 @@
             "evaluator": "IPython",
             "input": {
                 "body": [
+                    "import os",
+                    "os.getcwd()",
+                    "os.chdir('/Users/dspoka/Desktop/moscoso/nltk_childes/Hebrew') ",
                     "from nltk import data",
                     "from nltk.corpus.reader import CHILDESCorpusReader",
                     "from nltk.probability import FreqDist",
@@ -70,13 +73,13 @@
             },
             "output": {
                 "state": {},
-                "selectedType": "BeakerDisplay",
+                "selectedType": "Hidden",
                 "pluginName": "IPython",
-                "shellId": "E45A8F63109D4A4797D9041015895E72",
-                "elapsedTime": 330
+                "shellId": "2AFA94D3B37A45E9B56AF14B18DB0EB6",
+                "elapsedTime": 333
             },
             "evaluatorReader": true,
-            "lineCount": 26
+            "lineCount": 29
         },
         {
             "id": "codeVkbQ0l",
@@ -97,7 +100,7 @@
                     "#     if(corpus_root == \"/Users/dspoka/nltk_data/corpora/childes/English-UK-MOR\"):",
                     "#         data_directory = \"/Users/dspoka/Desktop/moscoso/nltk_childes/NLTKCHILDES/\"",
                     "#     else:",
-                    "    data_directory = \"/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/Hebrew/data_directory/\"",
+                    "    data_directory = \"/Users/dspoka/Desktop/moscoso/nltk_childes/Hebrew/data_directory/\"",
                     "    files = heb.fileids()",
                     "    return corpus_root, heb, files, data_directory",
                     "# %timeit files = get_files('childes')",
@@ -111,8 +114,8 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "E45A8F63109D4A4797D9041015895E72",
-                "elapsedTime": 307
+                "shellId": "2AFA94D3B37A45E9B56AF14B18DB0EB6",
+                "elapsedTime": 317
             },
             "evaluatorReader": true,
             "lineCount": 21
@@ -158,11 +161,32 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "E45A8F63109D4A4797D9041015895E72",
-                "elapsedTime": 36906
+                "shellId": "2AFA94D3B37A45E9B56AF14B18DB0EB6",
+                "elapsedTime": 28616
             },
             "evaluatorReader": true,
             "lineCount": 29
+        },
+        {
+            "id": "codeSsa4Zo",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "child_files_dict['hagar'][0]"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": "<div class=\"output_subarea output_text\"><pre>u'BermanLong/hagar/hag107a.xml'</pre></div>",
+                "selectedType": "Html",
+                "pluginName": "IPython",
+                "shellId": "2AFA94D3B37A45E9B56AF14B18DB0EB6",
+                "elapsedTime": 310,
+                "dataresult": "BermanLong/hagar/hag107a.xml"
+            },
+            "evaluatorReader": true,
+            "lineCount": 1
         },
         {
             "id": "codezCDEdg",
@@ -174,6 +198,8 @@
                     "f = 'BermanLong/hagar/hag107a.xml'",
                     "child_words = heb.words(f,speaker=\"CHI\",replace=True)",
                     "child_stems = [w.split(\"-\")[0] for w in heb.words(f,speaker=\"CHI\",replace=True,stem=True)]",
+                    "for unique in set(child_words):",
+                    "    print unique",
                     "#NOTE: NOT ALL FILES HAVE MOTHER AS A SPEAKER - WILL YIELD 0'S AND NAN'S"
                 ]
             },
@@ -184,18 +210,18 @@
                     "outputdata": [
                         {
                             "type": "out",
-                            "value": "yādi\nyādi\nyādi\nyādi\nrocā\nlesapēr\nlesapēr\nnadnēd\nhigāʕti\nnadnēd\nnadnēd\nnaʕalāyim\nnaʕalāyim\nlašīr\nlašīr\nlašīr\nlašīr\nlašīr\nlašīr\nʕeynāyim\nʕeynāyim\nmitgalēax\nmitgalēax\nmitgalēax\nmitgalēax\nmitgalēax\nmiḳnasāyim\nmiḳnasāyim\n\n\nyād\nyād\nyād\nyād\nracā\nsipēr\nsipēr\nnidnēd\nhigīaʕ\nnidnēd\nnidnēd\nnāʕal\nnāʕal\nʕāyin\nʕāyin\nhitgalēax\nhitgalēax\nhitgalēax\nhitgalēax\nhitgalēax\nmiḳnās\nmiḳnās\n"
+                            "value": "hīne\nʔābaʔ\nqaṭān\nyōfi\nʕeynāyim\nʕitōn\nze\nlalalala\nlēxem\ndēlet\ngag\nMimixa\nmiḳnasāyim\nʕod_pāʕam\nšafān\nlalala\nqafē\ntaq\nʔeš\nle\nladow\nšar\nrocā\nʔavāl\ntiq\nyam\nxam\nyad\nmitgalēax\nnaʕalāyim\nlašīr\nnadnēd\nsipūr\nʔor\nxxx\nkōvaʕ\nʔīmaʔ\nda\nyādi\nloʔ\nʕod\nHagari\ne\nmoa\nha\negen\nma\nyēled\no\nlemāʕla\nhigāʕti\ngalgāl\nʔaryē\nšamoa\nlesapēr\n"
                         }
                     ]
                 },
                 "selectedType": "Results",
                 "pluginName": "IPython",
-                "shellId": "E45A8F63109D4A4797D9041015895E72",
-                "elapsedTime": 312,
+                "shellId": "2AFA94D3B37A45E9B56AF14B18DB0EB6",
+                "elapsedTime": 322,
                 "dataresult": "577"
             },
             "evaluatorReader": true,
-            "lineCount": 5
+            "lineCount": 7
         },
         {
             "id": "codeVEEjSo",
@@ -203,24 +229,6 @@
             "evaluator": "IPython",
             "input": {
                 "body": [
-                    "def write_list_to_file(f, file_path, use_stem, speaker):",
-                    "    # Inputs a single child's file name, an out file_path name, a use_stem flag, and speaker (MOT or CHI)",
-                    "    # Writes (to the file file_path) the age of the child in the file f and then the list of all words (or stems) used in f, newline separated",
-                    "    fout = open(file_path, \"w\")",
-                    "    if(use_stem == False):",
-                    "        words = heb.words(f,speaker=speaker,replace=True)",
-                    "        fout.write(str(convert_age_to_days(heb.age(f)[0])) + \"\\n\")",
-                    "        for word in words:",
-                    "            if(word != \"xxx\"):",
-                    "                fout.write(word.encode('utf8') + \"\\n\")",
-                    "    else:",
-                    "        words = [w.split(\"-\")[0] for w in heb.words(f,speaker=speaker,replace=True,stem=True)]",
-                    "        fout.write(str(convert_age_to_days(heb.age(f)[0])) + \"\\n\")",
-                    "        for word in words:",
-                    "            if(word != \"xxx\"):",
-                    "                fout.write(word.encode('utf8') + \"\\n\")",
-                    "    fout.close()",
-                    "",
                     "def make_dir(directory):",
                     "    # Inputs a directory path",
                     "    # Creates a directory path at the input path if it does not already exist",
@@ -274,17 +282,48 @@
                     "            write_sentences_to_file(f, child_sentence_dir + file_name, \"CHI\")",
                     "            write_sentences_to_file(f, mother_sentence_dir + file_name, \"MOT\")",
                     "",
+                    "def concatenate_tuples(tuple):",
+                    "    print tuple",
+                    "    return tuple[0]+str(tuple[1])",
+                    "            ",
+                    "def write_list_to_file(f, file_path, use_stem, speaker):",
+                    "    # Inputs a single child's file name, an out file_path name, a use_stem flag, and speaker (MOT or CHI)",
+                    "    # Writes (to the file file_path) the age of the child in the file f and then the list of all words (or stems) used in f, newline separated",
+                    "    fout = open(file_path, \"w\")",
+                    "    if(use_stem == False):",
+                    "        words = map(concatenate_tuples, heb.tagged_words(f,replace=True))",
+                    "#         words = heb.words(f,speaker=speaker,replace=True)",
+                    "        fout.write(str(convert_age_to_days(heb.age(f)[0])) + \"\\n\")",
+                    "        for word in words:",
+                    "            if(word != \"xxx\"):",
+                    "                fout.write(word.encode('utf8') + \"\\n\")",
+                    "    else:",
+                    "        words = [w.split(\"-\")[0] for w in heb.words(f,speaker=speaker,replace=True,stem=True)]",
+                    "        fout.write(str(convert_age_to_days(heb.age(f)[0])) + \"\\n\")",
+                    "        for word in words:",
+                    "            if(word != \"xxx\"):",
+                    "                fout.write(word.encode('utf8') + \"\\n\")",
+                    "    fout.close()",
+                    "    ",
                     "# <10 min to run",
+                    "# small_dict = {}",
+                    "# small_dict['hagar'] = [child_files_dict['hagar'][0]]",
+                    "# small_dict['hagar'] += [child_files_dict['hagar'][1]]",
+                    "# # print child_files_dict['hagar']",
+                    "# print small_dict",
+                    "# output_words_to_files(small_dict)",
+                    "# output_sentences_to_files(small_dict)",
                     "output_words_to_files(child_files_dict)",
-                    "output_sentences_to_files(child_files_dict)"
+                    "output_sentences_to_files(child_files_dict)",
+                    ""
                 ]
             },
             "output": {
                 "state": {},
-                "selectedType": "Hidden",
+                "selectedType": "Results",
                 "pluginName": "IPython",
-                "shellId": "E45A8F63109D4A4797D9041015895E72",
-                "elapsedTime": 235776,
+                "shellId": "2AFA94D3B37A45E9B56AF14B18DB0EB6",
+                "elapsedTime": 321397,
                 "dataresult": [
                     "BermanLong/hagar/hag107a.xml",
                     "BermanLong/hagar/hag107b.xml",
@@ -420,10 +459,19 @@
                     "BermanLong/hagar/hag210a.xml",
                     "BermanLong/hagar/hag211a.xml",
                     "BermanLong/hagar/hag303a-gold.xml"
-                ]
+                ],
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "(u'kaze\\u0304', 'pro:dem')\n('we', 'conj')\n(u'kaze\\u0304', 'pro:dem')\n('we', 'conj')\n(u'kaze\\u0304', 'pro:dem')\n('we', 'conj')\n(u'qubiyo\\u0304t', 'n')\n('we', 'conj')\n(u'yalda\\u0304', 'n')\n('we', 'conj')\n('we', 'conj')\n('we', 'conj')\n(u'ca\\u0295acu\\u0295i\\u0304m', 'n')\n(u'ka\\u0294e\\u0304lu', 'pro:dem')\n(u'Li\\u0294o\\u0304ri', 'n:prop')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'hi\\u0304ne', 'co')\n(u's\\u030cot\\u0323e\\u0304r', 'n')\n(u'Li\\u0294o\\u0304rile\\u0304', 'n:prop')\n('we', 'conj')\n(u'leyca\\u0304n', 'n')\n(u'hi\\u0304ne', 'co')\n(u'yalda\\u0304', 'n')\n(u'Li\\u0294o\\u0304riqu', 'n:prop')\n(u'Li\\u0294o\\u0304r', 'n:prop')\n('we', 'conj')\n('gam', 'qn')\n(u'\\u0295ale\\u0304', 'n')\n('we', 'conj')\n(u'yeladi\\u0304m', 'n')\n(u'beto\\u0304k\\u0323', 'prep')\n(u'\\u0295ali\\u0304m', 'n')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'\\u0294i\\u0304ma\\u0294', 'n')\n('gam', 'qn')\n(u'\\u0295ali\\u0304m', 'n')\n('we', 'conj')\n('we', 'conj')\n(u'beto\\u0304k\\u0323', 'prep')\n(u'nak\\u0323o\\u0304n', 'adv')\n(u'yeladi\\u0304m', 'n')\n(u'beto\\u0304k\\u0323', 'prep')\n(u'\\u0295ali\\u0304m', 'n')\n(u'\\u0294ava\\u0304l', 'conj')\n(u'yes\\u030c', 'exs')\n('gam', 'qn')\n(u'midrak\\u0323a\\u0304', 'n')\n('ken', 'adv')\n(u'midrak\\u0323a\\u0304', 'n')\n(u'beto\\u0304k\\u0323', 'prep')\n(u'xalali\\u0304t', 'n')\n('ken', 'adv')\n('ha', 'det')\n(u'\\u0294eme\\u0304t', 'n')\n(u'hi\\u0294', 'cop')\n(u's\\u030ce', 'conj:subor')\n(u'be\\u0304t\\u0323ax', 'adv')\n('ha', 'det')\n('xala', 'n')\n('ha', 'det')\n(u'sipu\\u0304r', 'n')\n(u'\\u0295al', 'prep')\n('ha', 'det')\n(u'xalali\\u0304t', 'n')\n('kvar', 'adv')\n(u'nigma\\u0304r', 'v')\n(u'\\u0294ava\\u0304l', 'conj')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'lo\\u0294', 'neg')\n(u's\\u0323a\\u0304mti_lev', 'v')\n('ze', 'pro:dem')\n(u'lo\\u0294', 'neg')\n(u'nigma\\u0304r', 'v')\n(u'\\u0295od', 'adv')\n(u'\\u0294o\\u0304rili', 'n:prop')\n('we', 'conj')\n(u'hi\\u0304ne', 'co')\n(u'ba\\u0294', 'part')\n(u'tani\\u0304n', 'n')\n(u'hu\\u0294', 'pro:person')\n(u'yitfo\\u0304s', 'v')\n(u'\\u0294oto\\u0304', 'acc:pro')\n(u'\\u0295im', 'prep')\n('', 'det')\n(u'sira\\u0304', 'n')\n('way', 'co')\n('way', 'co')\n('way', 'co')\n('way', 'co')\n(u'\\u0294e\\u0304yze', 'que')\n(u'paxa\\u0304d', 'v')\n(u'\\u0294e\\u0304yze', 'que')\n(u'pa\\u0304xad', 'n')\n(u'mafxida\\u0304', 'part')\n(u'mafxida\\u0304', 'part')\n(u'mafxida\\u0304', 'part')\n(u'mafxida\\u0304', 'part')\n(u'mafxida\\u0304', 'part')\n(u'mafxida\\u0304', 'part')\n(u'\\u0294at', None)\n(u'yoda\\u0304\\u0295at', None)\n('ha', 'det')\n(u'tola\\u0304\\u0295at', 'n')\n(u'lo\\u0294', 'neg')\n(u'mafxida\\u0304', 'part')\n(u'tola\\u0304\\u0295at', 'n')\n(u'qt\\u0323ana\\u0304', 'part')\n(u'qt\\u0323ana\\u0304', 'adj')\n('we', 'conj')\n(u'le\\u0294a\\u0304n', 'que')\n(u'hi\\u0294', 'pro:person')\n(u'hole\\u0304k\\u0323et', 'part')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'hi\\u0294', 'pro:person')\n(u'mistake\\u0304let', 'part')\n(u'\\u0295al', 'prep')\n('ha', 'det')\n(u'tani\\u0304n', 'n')\n('we', 'conj')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'xos\\u030ce\\u0304vet', 'part')\n(u's\\u030ce', 'conj:subor')\n('ha', 'det')\n(u'qat\\u0323a\\u0304n\\xe7uq', 'a:dim')\n('ha_ze', 'pro:dem')\n(u'qor\\u0294i\\u0304m', 'part')\n('lo', 'prep:pro')\n(u'Go\\u0304nzo', 'n:prop')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'xos\\u030ce\\u0304vet', 'part')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'lo\\u0294', 'neg')\n(u'bet\\u0323uxa\\u0304', 'adj')\n('ze', 'pro:dem')\n(u'lo\\u0294', 'co')\n('ze', 'pro:dem')\n(u'tani\\u0304n', 'n')\n(u'kmo_s\\u030ce', 'conj:subor')\n(u'\\u0294ama\\u0304rt', 'v')\n('ma', 'que')\n('ze', 'pro:dem')\n('ze', 'pro:dem')\n(u'tola\\u0304\\u0295at', 'n')\n(u'kmo_s\\u030ce', 'conj:subor')\n(u'\\u0294ama\\u0304rt', 'v')\n('we', 'conj')\n('ze', 'pro:dem')\n(u'tani\\u0304n', 'n')\n(u'\\u0294eyk\\u0323', 'que')\n(u'qor\\u0294i\\u0304m', 'part')\n('le', 'prep')\n('ze', 'pro:dem')\n(u'Go\\u0304nzo', 'n:prop')\n(u'Go\\u0304nzo', 'n:prop')\n(u'qor\\u0294i\\u0304m', 'part')\n(u'qor\\u0294i\\u0304m', 'part')\n(u'qor\\u0294i\\u0304m', 'part')\n(u'qor\\u0294i\\u0304m', 'part')\n(u'qor\\u0294i\\u0304m', 'part')\n(u'qor\\u0294i\\u0304m', 'part')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'lo\\u0294', 'neg')\n(u'yada\\u0304\\u0295ti', 'v')\n(u'\\u0294eyk\\u0323', 'que')\n(u'qor\\u0294i\\u0304m', 'part')\n('lo', 'prep:pro')\n(u'\\u0294ava\\u0304l', 'conj')\n('ze', 'pro:dem')\n(u'qarna\\u0304f', 'n')\n(u'qarna\\u0304f', 'n')\n('we', 'conj')\n(u'hu\\u0294', 'pro:person')\n(u'roce\\u0304', 'part')\n(u'litfo\\u0304s', 'v')\n(u'\\u0294oto\\u0304', 'acc:pro')\n(u'\\u0294ahha', 'voc')\n(u'lo\\u0294', 'co')\n('ze', 'pro:dem')\n('ken', 'adv')\n('gam', 'adv')\n('ze', 'pro:dem')\n(u'roce\\u0304', 'part')\n('ken', 'co')\n('gam', 'qn')\n(u'qarna\\u0304f', 'n')\n('ze', 'pro:dem')\n(u'lo\\u0294', 'neg')\n(u'xaya\\u0304', 'n')\n(u'ne\\u0295ima\\u0304', 'adj')\n(u'bimyuxa\\u0304d', 'adv')\n(u'nak\\u0323o\\u0304n', 'co')\n('gam', 'adv')\n(u'tani\\u0304n', 'n')\n(u'\\u0294ahha', 'voc')\n(u'roce\\u0304', None)\n('hem', 'pro:person')\n(u'roci\\u0304m', 'part')\n(u'litfo\\u0304s', 'v')\n(u'\\u0294oto\\u0304', 'acc:pro')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'yak\\u0323o\\u0304l', 'part')\n(u'lihiyo\\u0304t', 'cop')\n('we', 'conj')\n('gam', 'qn')\n('we', 'conj')\n('gam', 'adv')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'met\\u0323ape\\u0304let', 'part')\n(u'met\\u0323ape\\u0304let', 'part')\n(u'met\\u0323ape\\u0304let', 'part')\n(u'met\\u0323ape\\u0304let', 'part')\n(u'met\\u0323ape\\u0304let', 'part')\n(u'met\\u0323ape\\u0304let', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'bewada\\u0304\\u0294y_s\\u030ce', 'conj:subor')\n(u'hi\\u0294', 'pro:person')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'hi\\u0294', 'pro:person')\n(u'lo\\u0294', 'neg')\n(u'tino\\u0304qet', 'n')\n(u'hi\\u0294', 'pro:person')\n(u'\\u0294is\\u030ca\\u0304', 'n')\n(u'Li\\u0294o\\u0304ri', 'n:prop')\n('we', 'conj')\n('gam', 'qn')\n(u'ciyuri\\u0304m', 'n')\n(u'\\u0294ahha', 'voc')\n(u'\\u0294im', 'conj:subor')\n(u'roci\\u0304m', 'part')\n(u'lecaye\\u0304r', 'v')\n(u'nak\\u0323o\\u0304n', 'adv')\n('we', 'conj')\n('gam', 'qn')\n(u'du\\u0304bi', 'n:dim')\n(u'kaze\\u0304', 'pro:dem')\n(u'\\u0294ahha', 'voc')\n('we', 'conj')\n('gam', 'qn')\n(u'klavla\\u0304v', 'n')\n(u'kaze\\u0304', 'pro:dem')\n(u'hu\\u0294', 'pro:person')\n(u'yak\\u0323o\\u0304l', 'part')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'nak\\u0323o\\u0304n', 'adv')\n(u'hu\\u0294', 'pro:person')\n(u'\\u0295os\\u0323e\\u0304', 'part')\n(u'\\u0294a\\u0304u', 'co')\n(u'\\u0294a\\u0304u', 'co')\n(u'\\u0294a\\u0304u', 'co')\n(u'la\\u0295as\\u0323o\\u0304t', 'v')\n(u'la\\u0295as\\u0323o\\u0304t', 'v')\n(u'la\\u0295as\\u0323o\\u0304t', 'v')\n(u'la\\u0295as\\u0323o\\u0304t', 'v')\n(u'nak\\u0323o\\u0304n', 'adv')\n('gam', 'adv')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'\\u0294az', 'adv')\n('ma', 'que')\n('ze', 'pro:dem')\n(u'sima\\u0304n', 'n')\n(u'\\u0294im', 'conj:subor')\n(u'hu\\u0294', 'pro:person')\n(u'yak\\u0323o\\u0304l', 'part')\n(u'linbo\\u0304ax', 'v')\n('we', 'conj')\n('gam', 'adv')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'hu\\u0294', 'pro:person')\n(u'lo\\u0294', 'neg')\n(u'yak\\u0323o\\u0304l', 'part')\n(u'hu\\u0294', 'pro:person')\n(u'cari\\u0304k\\u0323', 'adv')\n(u'lale\\u0304k\\u0323', 'v')\n(u'hu\\u0294', 'pro:person')\n(u'ke\\u0304lev', 'n')\n(u'gado\\u0304l', 'adj')\n(u'yaxasi\\u0304t', 'adv')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'nak\\u0323o\\u0304n', 'co')\n('we', 'conj')\n(u'kaze\\u0304', 'pro:dem')\n('we', 'conj')\n(u'kaze\\u0304', 'pro:dem')\n('ze', 'pro:dem')\n('', 'adv')\n(u'yafe\\u0304', 'adv')\n('sus', 'n')\n('we', 'conj')\n('gam', 'adv')\n(u'kaze\\u0304', 'pro:dem')\n('ze', 'pro:dem')\n(u'Qe\\u0304rmit\\u0323_ha_cfarde\\u0304a\\u0295', 'n:prop')\n(u'\\u0295ugiya\\u0304', 'n')\n(u'Nica\\u0304n', 'n:prop')\n(u'\\u0294ata\\u0304', 'pro:person')\n(u'tipo\\u0304l', 'v')\n('we', 'conj')\n('gam', 'qn')\n(u'\\u0294o\\u0304hel', 'n')\n(u'kaze\\u0304', 'pro:dem')\n(u'\\u0294ahha', 'voc')\n('we', 'conj')\n('gam', 'qn')\n(u'\\u0294e\\u0304ven', 'n')\n(u'kazo\\u0304\\u0294ti', 'pro:dem')\n(u'gdola\\u0304', 'adj')\n('we', 'conj')\n(u'yos\\u030ce\\u0304v', 'part')\n('we', 'conj')\n(u'qubiyo\\u0304t', 'n')\n('we', 'conj')\n(u'yalda\\u0304', 'n')\n('we', 'conj')\n(u'kadu\\u0304r', 'n')\n('we', 'conj')\n(u'ze\\u0304hu', 'co')\n(u'\\u0295ak\\u0323s\\u030ca\\u0304yw', 'adv')\n(u'\\u0295ak\\u0323s\\u030ca\\u0304yw', 'adv')\n(u'\\u0295ak\\u0323s\\u030ca\\u0304yw', 'adv')\n(u'\\u0295ak\\u0323s\\u030ca\\u0304yw', 'adv')\n(u'\\u0295ak\\u0323s\\u030ca\\u0304yw', 'adv')\n(u'lo\\u0294', 'co')\n(u'\\u0294eyn', 'exs')\n('li', 'prep:pro')\n(u'ko\\u0304ax', 'n')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'\\u0294eyn', 'exs')\n(u'lak\\u0323', 'prep:pro')\n(u'ko\\u0304ax', 'n')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'\\u0294eyn', 'exs')\n('li', 'prep:pro')\n(u'ko\\u0304ax', 'n')\n('xxx', 'w')\n(u'ma\\u0304s\\u030cehu', 'pro:indef')\n(u'\\u0295od', 'qn')\n(u'tistakli\\u0304', 'v')\n(u'tistakli\\u0304', 'v')\n(u'tistakli\\u0304', 'v')\n(u'tistakli\\u0304', 'v')\n(u'tistakli\\u0304', 'v')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n(u'\\u0294at', 'pro:person')\n('ma', 'que')\n(u'histakli\\u0304', 'v')\n(u'histakli\\u0304', 'v')\n('ma', 'que')\n(u'lehistake\\u0304l', 'v')\n('ma', 'que')\n('ze', 'pro:dem')\n('pan', 'chi')\n('ma', 'que')\n('ze', 'pro:dem')\n('pan', 'chi')\n(u'nidba\\u0304q', 'v')\n(u'lak\\u0323', 'prep:pro')\n(u'qo\\u0304rnfleqs', 'n')\n(u'\\u0294exa\\u0304d', 'num')\n('ken', 'adv')\n('uhuh', 'chi')\n('ma', 'que')\n(u'mitxas\\u030ce\\u0304q', 'part')\n(u'lak\\u0323', 'prep:pro')\n(u'la\\u0295as\\u0323o\\u0304t', 'v')\n('ma', 'que')\n(u'hu\\u0294', 'pro:person')\n(u'\\u0295as\\u0323a\\u0304', 'v')\n(u'mek\\u0323abe\\u0304', 'part')\n('we', 'conj')\n(u'madli\\u0304q', 'part')\n(u'\\u0294ahha', 'voc')\n(u'le\\u0304k\\u0323i', 'v')\n(u'tavi\\u0304\\u0294i', 'v')\n('li', 'prep:pro')\n(u'\\u0295od', 'adv')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'\\u0294ula\\u0304y', 'adv')\n(u'\\u0294axa\\u0304r_kak\\u0323', 'adv')\n(u'tes\\u030cvi\\u0304', 'v')\n('we', 'conj')\n(u'to\\u0294k\\u0323li\\u0304', 'v')\n(u's\\u030cam', 'adv')\n(u'bik\\u0323la\\u0304l', 'adv')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u't\\u0323ov', 'co')\n(u'\\u0294az', 'adv')\n(u'to\\u0294k\\u0323li\\u0304', 'v')\n(u'bete\\u0294avo\\u0304n', 'adv')\n(u'\\u0294ula\\u0304y', 'adv')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294avo\\u0304\\u0294', 'v')\n(u'las\\u030ce\\u0304vet', 'v')\n(u'leyade\\u0304k\\u0323', 'prep:pro')\n('ken', 'co')\n(u'tavo\\u0304\\u0294i', 'v')\n('ma', 'que')\n(u'bo\\u0304\\u0294i', 'v')\n(u'\\u0295ak\\u0323s\\u030ca\\u0304yw', 'adv')\n(u't\\u0323ov', 'co')\n('xxx', 'w')\n('ma', 'que')\n('ze', 'pro:dem')\n('ze', 'pro:dem')\n('mi', 'prep')\n('qoci', 'chi')\n('ma', 'que')\n('ze', 'pro:dem')\n('mi', 'prep')\n('qoci', 'chi')\n(u'qu\\u0304\\xe7i_mqu\\u0304\\xe7i', 'co')\n('kuci', 'chi')\n('mkuci', 'chi')\n('gim', 'chi')\n('gim', 'chi')\n('gim', 'chi')\n(u'mevina\\u0304', 'part')\n(u'mevina\\u0304', 'part')\n(u'mevina\\u0304', 'part')\n(u'mevina\\u0304', 'part')\n(u'mevina\\u0304', 'part')\n(u'mevina\\u0304', 'part')\n('ze', 'pro:dem')\n('kmo', 'prep')\n(u'tino\\u0304q', 'n')\n('ma', 'que')\n('kmo', 'prep')\n(u'tino\\u0304q', 'n')\n(u'diba\\u0304rt', 'v')\n('kmo', 'prep')\n(u'tino\\u0304q', 'n')\n(u'\\u0294oy', 'co')\n('ha', 'det')\n(u'ricpa\\u0304', 'n')\n(u'mele\\u0294a\\u0304', 'adj')\n(u'qo\\u0304renfleqs', 'n')\n(u'\\u0294efs\\u030ca\\u0304r', 'adv')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'\\u0294i_\\u0294efs\\u030ca\\u0304r', 'adv')\n(u'lale\\u0304k\\u0323et', 'v')\n(u'\\u0294efs\\u030ca\\u0304r', 'adv')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294az', 'adv')\n(u'\\u0294at', 'pro:person')\n(u'xak\\u0323ama\\u0304', 'adj')\n('ba', 'prep')\n(u'bo\\u0304qer', 'n')\n(u'zore\\u0304qet', 'part')\n(u'qo\\u0304renfleqs', 'n')\n(u'\\u0295al', 'prep')\n('ha', 'det')\n(u'ricpa\\u0304', 'n')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'xak\\u0323u\\u0304me', 'neo')\n(u'nak\\u0323o\\u0304n', 'adv')\n(u'nak\\u0323o\\u0304n', 'adv')\n(u'xak\\u0323u\\u0304me', 'neo')\n(u's\\u030ce', 'conj:subor')\n(u's\\u030ce', 'conj:subor')\n(u's\\u030ce', 'conj:subor')\n(u's\\u030ce', 'conj:subor')\n(u's\\u030ce', 'conj:subor')\n(u's\\u030ce', 'conj:subor')\n(u's\\u030ce', 'conj:subor')\n('ma', 'que')\n(u'ta\\u0295as\\u0323i\\u0304', 'v')\n(u'ta\\u0295as\\u0323i\\u0304', 'v')\n(u'ta\\u0295as\\u0323i\\u0304', 'v')\n(u'ta\\u0295as\\u0323i\\u0304', 'v')\n(u'ta\\u0295as\\u0323i\\u0304', 'v')\n(u'ta\\u0295as\\u0323i\\u0304', 'v')\n('ma', 'que')\n(u'la\\u0295as\\u0323o\\u0304t', 'v')\n(u'lak\\u0323', 'prep:pro')\n(u'\\u0295od', 'qn')\n(u'\\u0294exa\\u0304d', 'num')\n('xxx', 'w')\n(u'qo\\u0304rnfleqs', 'n')\n('ze', 'pro:dem')\n(u'lo\\u0294', 'neg')\n(u'cari\\u0304k\\u0323', 'adj')\n(u'ma\\u0304yim', 'n')\n('ma', 'que')\n(u'Li\\u0294o\\u0304r', 'n:prop')\n('ki', 'conj:subor')\n('ze', 'pro:dem')\n(u'\\u0295ak\\u0323s\\u030ca\\u0304yw', 'adv')\n('ze', 'pro:dem')\n(u'meluk\\u0323la\\u0304k\\u0323', 'adj')\n('ma', 'que')\n(u'meluk\\u0323la\\u0304k\\u0323', 'adj')\n(u'\\u0295im', 'prep')\n(u'qo\\u0304rnfleqs', 'n')\n('ze', 'pro:dem')\n('ha', 'det')\n(u'ricpa\\u0304', 'n')\n('ken', 'adv')\n(u'niqi\\u0304ti', 'v')\n(u'\\u0295ak\\u0323s\\u030ca\\u0304yw', 'adv')\n(u'lo\\u0294', 'neg')\n(u'ra\\u0294i\\u0304t', 'v')\n(u's\\u030ce', 'conj:subor')\n(u't\\u0323i\\u0294t\\u0323e\\u0304\\u0294ti', 'v')\n(u'niqi\\u0304ti', 'v')\n('nu', 'co')\n(u'ze\\u0304hu', 'co')\n(u'\\u0294az', 'adv')\n(u'\\u0295ak\\u0323s\\u030ca\\u0304yw', 'adv')\n('ze', 'pro:dem')\n('kvar', 'adv')\n(u'lo\\u0294', 'neg')\n(u'meluk\\u0323la\\u0304k\\u0323', 'adj')\n(u'tavi\\u0304\\u0294', 'v')\n(u'Nica\\u0304n', 'n:prop')\n(u'bo\\u0294', 'v')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'\\u0294es\\u0323axe\\u0304q', 'v')\n(u'\\u0294itk\\u0323a\\u0304', 'prep:pro')\n(u'tir\\u0294e\\u0304', 'v')\n(u'\\u0294eyk\\u0323', 'que')\n(u'mes\\u0323axqi\\u0304m', 'part')\n(u'tir\\u0294e\\u0304', 'v')\n(u'ka\\u0304k\\u0323a', 'adv')\n(u'la\\u0295as\\u0323o\\u0304t', 'v')\n(u'la\\u0295as\\u0323o\\u0304t', 'v')\n(u'la\\u0295as\\u0323o\\u0304t', 'v')\n(u'la\\u0295as\\u0323o\\u0304t', 'v')\n(u'la\\u0295as\\u0323o\\u0304t', 'v')\n(u'la\\u0295as\\u0323o\\u0304t', 'v')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u's\\u030ce', 'conj:subor')\n(u'tigmeri\\u0304', 'v')\n('be', 'prep')\n(u'pa\\u0304\\u0295am_\\u0294axa\\u0304t', 'adv')\n(u't\\u0323ov', 'co')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'heva\\u0304nt', 'v')\n(u'\\u0294et', 'acc')\n('ze', 'pro:dem')\n('raq', 'adv')\n(u'\\u0294et', 'acc')\n('', 'det')\n(u's\\u030culxa\\u0304n', 'n')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u'\\u0294et', 'acc')\n(u't\\u0323ov', 'co')\n(u't\\u0323ov', 'co')\n(u'\\u0294ani\\u0304', 'pro:person')\n('raq', 'adv')\n(u'\\u0294ok\\u0323e\\u0304let', 'part')\n('', 'acc')\n('kol', 'qn')\n('', 'det')\n(u'qo\\u0304rnfleqs', 'n')\n(u're\\u0304ga\\u0295', 'n')\n(u'Nica\\u0304n', 'n:prop')\n('qum', 'v')\n(u'\\u0294ula\\u0304y', 'adv')\n(u'\\u0294at', 'pro:person')\n(u'roca\\u0304', 'part')\n('gam', 'adv')\n(u'ma\\u0304s\\u030cehu', 'pro:indef')\n(u'mezi\\u0304n', 'adj')\n(u'Li\\u0294o\\u0304r', 'n:prop')\n(u'lo\\u0294', 'co')\n('gam', 'qn')\n(u'qo\\u0304renfleqs', 'n')\n('ze', 'pro:dem')\n(u'mezi\\u0304n', 'part')\n(u'\\u0294im_ki', 'adv')\n(u'lo\\u0294_mi_yode\\u0304a\\u0295_ma', 'adv')\n('ze', 'pro:dem')\n(u're\\u0304yax', 'n')\n(u's\\u030cel', 'prep')\n(u'ba\\u0304mba', 'n')\n(u'civ\\u0295oni\\u0304', 'adj')\n(u'yes\\u030c', 'exs')\n('le', 'prep')\n('ze', 'pro:dem')\n(u're\\u0304yax', 'n')\n(u's\\u030cel', 'prep')\n(u'Ba\\u0304mba', 'n:prop')\n(u'civ\\u0295oni\\u0304t', 'adj')\n('ze', 'pro:dem')\n('ze', 'pro:dem')\n('ze', 'pro:dem')\n('ze', 'pro:dem')\n('ze', 'pro:dem')\n('ze', 'pro:dem')\n('ze', 'pro:dem')\n('ze', 'pro:dem')\n('ze', 'pro:dem')\n('ze', 'pro:dem')\n('raq', 'qn')\n(u're\\u0304yax', 'n')\n(u's\\u030cel', 'prep')\n(u'Ba\\u0304mba', 'n:prop')\n(u'civ\\u0295oni\\u0304t', 'adj')\n(u'\\u0294at', 'pro:person')\n(u'mitkawe\\u0304net', 'part')\n('ken', 'adv')\n(u'hi\\u0304ne', 'co')\n(u'yo\\u0304yo', 'n')\n(u'yo\\u0304yo', 'n')\n(u'cari\\u0304k\\u0323', 'adv')\n(u'cari\\u0304k\\u0323', 'adv')\n(u'cari\\u0304k\\u0323', 'adv')\n(u'cari\\u0304k\\u0323', 'adv')\n(u're\\u0304ga\\u0295', 'co')\n(u'na\\u0304na', 'n')\n(u'na\\u0304na', 'n')\n(u'na\\u0304na', 'n')\n(u'nak\\u0323o\\u0304n', 'adv')\n(u'na\\u0304na', 'n')\n(u'nak\\u0323o\\u0304n', 'adv')\n(u'na\\u0304na', 'n')\n(u'hu\\u0294', 'pro:person')\n(u'loqe\\u0304ax', 'part')\n('me', 'chi')\n(u'\\u0295od', 'qn')\n('xxx', 'w')\n(u'mime\\u0304ni', 'prep:pro')\n('we', 'conj')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'loqa\\u0304xat', 'part')\n(u'mime\\u0304no', 'prep:pro')\n('we', 'conj')\n('ze', 'pro:dem')\n('ba', 'prep')\n(u's\\u030culxa\\u0304n', 'n')\n(u'\\u0294ahha', 'voc')\n(u'lo\\u0294', 'neg')\n(u'laqa\\u0304x', 'v')\n('li', 'prep:pro')\n(u'qu\\u0304qu', 'co')\n('vadam', 'chi')\n(u'lo\\u0294', 'co')\n('vadam', 'chi')\n('ma', 'que')\n('ze', 'pro:dem')\n('vadam', 'chi')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'mexaqa\\u0304', 'part')\n(u'\\u0294et', 'acc')\n(u'Nica\\u0304n', 'n:prop')\n('vadam', 'chi')\n('ha', 'det')\n(u'\\u0294eme\\u0304t', 'n')\n(u'hi\\u0294', 'cop')\n(u's\\u030ce', 'conj:subor')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'lo\\u0294', 'neg')\n(u'yoda\\u0304\\u0295at', 'part')\n('ma', 'que')\n('ze', 'pro:dem')\n('ba', 'prep')\n(u's\\u0323afa\\u0304', 'n')\n(u's\\u030celo\\u0304', 'prep:pro')\n('pata', 'chi')\n('gam', 'qn')\n('pata', 'chi')\n('ma', 'que')\n('ze', 'pro:dem')\n('pata', 'chi')\n('pata', 'chi')\n('ze', 'pro:dem')\n('txata', 'chi')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'yoda\\u0304\\u0295at', 'part')\n('ken', 'adv')\n(u'yes\\u030c', 'exs')\n('lo', 'prep:pro')\n(u'kol_mine\\u0304y', 'qn')\n(u'mili\\u0304m', 'n')\n(u's\\u030ce', 'conj:subor')\n(u'\\u0294ani\\u0304', 'pro:person')\n(u'lo\\u0294', 'neg')\n(u'mevina\\u0304', 'part')\n('ze', 'pro:dem')\n(u'\\u0294a\\u0304dam', 'n:prop')\n(u'\\u0294a\\u0304dam', 'n:prop')\n('Adam', 'n:prop')\n(u'hi\\u0304ne', 'co')\n(u'hu\\u0294', 'pro:person')\n(u'\\u0294ome\\u0304r', 'part')\n(u'\\u0294a\\u0304dam', 'n:prop')\n(u'hu\\u0294', 'pro:person')\n(u'\\u0294ome\\u0304r', 'part')\n(u'\\u0294a\\u0304dam', 'n:prop')\n('ken', 'adv')\n(u'\\u0294a\\u0304dam', 'n:prop')\n(u'\\u0294ata\\u0304', 'pro:person')\n(u'yode\\u0304a\\u0295', 'part')\n(u'lehagi\\u0304d', 'v')\n('pata', 'chi')\n('pata', 'chi')\n('ze', 'pro:dem')\n('gam', 'adv')\n(u'\\u0294a\\u0304dam', 'n:prop')\n('xxx', 'w')\n('', 'det')\n(u'mila\\u0304', 'n')\n(u's\\u030cel', 'prep')\n(u'\\u0294a\\u0304dam', 'n:prop')\n('ma', 'que')\n('ze', 'pro:dem')\n('ha', 'det')\n(u'mila\\u0304', 'n')\n(u's\\u030cel', 'prep')\n(u'\\u0294a\\u0304dam', 'n:prop')\n('ken', 'adv')\n('ma', 'que')\n(u'peru\\u0304s\\u030c', 'n')\n('ha', 'det')\n(u'mila\\u0304', 'n')\n(u'\\u0294a\\u0304dam', 'n:prop')\n('ken', 'adv')\n(u'\\u0294a\\u0304dam', 'n:prop')\n(u'hu\\u0294', 'pro:person')\n(u'be\\u0295e\\u0304cem', 'adv')\n(u'kmo_s\\u030ce', 'conj:subor')\n(u'\\u0294ana\\u0304xnu', 'pro:person')\n(u'nohagi\\u0304m', 'part')\n(u'lehagi\\u0304d', 'v')\n('be', 'prep')\n(u'\\u0295ivri\\u0304t', 'n:prop')\n(u'\\u0294ada\\u0304m', 'n:prop')\n(u'haya\\u0304', 'cop')\n('ha', 'det')\n(u'\\u0294is\\u030c', 'n')\n('ha', 'det')\n(u'ri\\u0294s\\u030co\\u0304n', 'adj')\n(u'lefi\\u0304', 'prep')\n('ha', 'det')\n(u'tora\\u0304', 'n')\n('ha', 'det')\n(u'yehudi\\u0304t', 'adj')\n('ken', 'adv')\n(u's\\u030ce', 'conj:subor')\n(u'nivra\\u0304\\u0294', 'part')\n(u'\\u0295ale\\u0304y_\\u0294adamo\\u0304t', 'adv')\n(u'\\u0294elohi\\u0304m', 'n')\n(u'bara\\u0304\\u0294', 'v')\n(u'\\u0294ada\\u0304m', 'n')\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n('la', None)\n(u'nak\\u0323o\\u0304n', 'adv')\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'\\u0295al', None)\n('ma', None)\n(u'himre\\u0304\\u0294nu', None)\n(u'\\u0294ahha\\u0304', 'co')\n(u'\\u0295al', 'prep')\n('ma', 'que')\n(u'me\\u0295a\\u0304l', 'prep')\n('la', 'prep')\n(u'\\u0295anani\\u0304m', 'n')\n(u'me\\u0295a\\u0304l', 'prep')\n('la', 'prep')\n(u'\\u0295anani\\u0304m', 'n')\n(u'nak\\u0323o\\u0304n', 'co')\n(u'nak\\u0323o\\u0304n', 'adv')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'hu\\u0294', 'pro:person')\n(u'lo\\u0294', 'neg')\n(u'\\u0295aft', 'v')\n(u'lo\\u0294', 'co')\n(u'\\u0294o', 'conj')\n(u'lo\\u0294', 'neg')\n(u'\\u0294aha\\u0304vt', 'v')\n(u'lo\\u0294', 'neg')\n(u'\\u0295a\\u0304fti', 'v')\n(u'be\\u0304t\\u0323ax', 'adv')\n(u's\\u030ce', 'conj:subor')\n(u'lo\\u0294', 'neg')\n(u'\\u0295aft', 'v')\n(u'hayi\\u0304t', 'cop')\n(u'beto\\u0304k\\u0323', 'prep')\n('ha', 'det')\n(u'mat\\u0323o\\u0304s', 'n')\n(u'nak\\u0323o\\u0304n', 'adv')\n(u'\\u0294ava\\u0304l', 'conj')\n(u'lo\\u0294', 'neg')\n(u'paxa\\u0304deti', 'v')\n(u'lo\\u0294', 'neg')\n(u'paxa\\u0304det', 'v')\n(u'paxa\\u0304deti', 'v')\n(u'paxa\\u0304deti', 'v')\n(u'paxa\\u0304deti', 'v')\n(u'paxa\\u0304deti', 'v')\n(u'paxa\\u0304deti', 'v')\n(u'paxa\\u0304deti', 'v')\n(u'paxa\\u0304deti', 'v')\n(u'yalda\\u0304', 'n')\n(u'\\u0294amica\\u0304', 'adj')\n(u'nak\\u0323o\\u0304n', 'adv')\n('ma', 'que')\n(u'\\u0295as\\u0323i\\u0304t', 'v')\n('ha', 'det')\n('pax', 'n')\n('ba', 'prep')\n(u'ricpa\\u0304', 'n')\n(u'mas\\u030cmi\\u0304a\\u0295', 'part')\n('qol', 'n')\n(u'muza\\u0304r', 'adj')\n('ding_dong', 'on')\n('ding_dong', 'on')\n('din', 'on')\n('don', 'on')\n('din', 'on')\n('don', 'on')\n('din', 'on')\n('don', 'on')\n('din', 'on')\n('don', 'on')\n('din', 'on')\n('dong', 'on')\n('din', 'on')\n('dong', 'on')\n('din', 'on')\n('don', 'on')\n(u'lo\\u0294', 'neg')\n('gdin_don', 'on')\n(u'lo\\u0294', 'neg')\n(u'yoda\\u0304\\u0295at', 'part')\n(u'hole\\u0304k\\u0323et', 'part')\n(u'hole\\u0304k\\u0323et', 'part')\n(u'hole\\u0304k\\u0323et', 'part')\n(u'hole\\u0304k\\u0323et', 'part')\n(u'hole\\u0304k\\u0323et', 'part')\n(u'hole\\u0304k\\u0323et', 'part')\n(u'lo\\u0294', 'co')\n('ma', 'que')\n(u'lo\\u0294', 'neg')\n(u'roca\\u0304', 'part')\n(u'roca\\u0304', 'part')\n(u'roca\\u0304', 'part')\n(u'roca\\u0304', 'part')\n(u'roca\\u0304', 'part')\n(u'hi\\u0304ne', 'co')\n(u'yes\\u030c', 'exs')\n(u'lak\\u0323', 'prep:pro')\n('kol', 'qn')\n('ha', 'det')\n(u'qufsa\\u0304', 'n')\n(u'leyade\\u0304k\\u0323', 'prep:pro')\n(u'maspi\\u0304q', 'adv')\n(u'bete\\u0294avo\\u0304n', 'co')\n(u'toda\\u0304', 'co')\n(u'\\u0295al_lo\\u0294_dava\\u0304r', 'co')\n"
+                        }
+                    ]
+                }
             },
             "evaluatorReader": true,
-            "lineCount": 74
+            "lineCount": 87
         },
         {
             "id": "codeLf0EKJ",
@@ -493,8 +541,8 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "E45A8F63109D4A4797D9041015895E72",
-                "elapsedTime": 1501
+                "shellId": "2AFA94D3B37A45E9B56AF14B18DB0EB6",
+                "elapsedTime": 659
             },
             "evaluatorReader": true,
             "lineCount": 56
@@ -583,8 +631,8 @@
                 "state": {},
                 "selectedType": "BeakerDisplay",
                 "pluginName": "IPython",
-                "shellId": "E45A8F63109D4A4797D9041015895E72",
-                "elapsedTime": 372
+                "shellId": "2AFA94D3B37A45E9B56AF14B18DB0EB6",
+                "elapsedTime": 348
             },
             "evaluatorReader": true,
             "lineCount": 72
@@ -637,19 +685,19 @@
                     "type": "Results",
                     "outputdata": [
                         {
-                            "type": "out",
-                            "value": "Runtime for window_size 3 is 3.33967018127\n"
+                            "type": "err",
+                            "value": "/usr/local/lib/python2.7/site-packages/numpy/core/_methods.py:59: RuntimeWarning: Mean of empty slice.\n  warnings.warn(\"Mean of empty slice.\", RuntimeWarning)\n"
                         },
                         {
-                            "type": "err",
-                            "value": "/Library/Python/2.7/site-packages/numpy/core/_methods.py:59: RuntimeWarning: Mean of empty slice.\n  warnings.warn(\"Mean of empty slice.\", RuntimeWarning)\n"
+                            "type": "out",
+                            "value": "Runtime for window_size 3 is 3.64753890038\n"
                         }
                     ]
                 },
                 "selectedType": "Results",
                 "pluginName": "IPython",
-                "shellId": "E45A8F63109D4A4797D9041015895E72",
-                "elapsedTime": 3563
+                "shellId": "2AFA94D3B37A45E9B56AF14B18DB0EB6",
+                "elapsedTime": 3821
             },
             "evaluatorReader": true,
             "lineCount": 34
