@@ -135,142 +135,142 @@ GetJointTauEmbed <- function(measurement_names, concat_series, median_taus, plot
   }
   
   rownames(joint_tau_embed) <- c("T", "E")
-  colnames(joint_tau_embed) <- c("child_loq", "child_lex", "child_inf", "child_syn", "mother_loq", "mother_lex", "mother_inf", "mother_syn")
+  colnames(joint_tau_embed) <- c("child_loq", "child_lex", "child_new", "child_syn", "mother_loq", "mother_lex", "mother_new", "mother_syn")
   write.table(joint_tau_embed, paste(directory, "CCM_data/joint_tau_embed_total.csv", sep = ""), sep = ",")
 }
 GetJointTauEmbed(measurement_names, concat_series, median_taus, plot = TRUE)
 joint_tau_embed <- read.table(paste(directory, "CCM_data/joint_tau_embed_total.csv", sep = ""), header = TRUE, sep = ",")
 
-# options(digits=22)
-# colnames(concat_series) <- colnames(joint_tau_embed)
-# cross_child_names <- c("child_loq", "child_lex", "child_inf", "child_syn")
-# cross_mother_names <- c("mother_loq", "mother_lex", "mother_inf", "mother_syn")
-# inner_names <- c("loq", "lex", "inf", "syn")
-# p_values <- c()
-# p_names <- c()
-# signal_graph_names <- c("Loquacity", "Lexical", "Inflectional", "Syntactic")
-# dir.create(paste(directory, "CCM_data/Signal", sep = ""), showWarnings = FALSE)
-# dir.create(paste(directory, "CCM_data/Causal", sep = ""), showWarnings = FALSE)
-# 
-# # Perform cross analysis
-# index <- 1
-# for(i in 1:(length(cross_child_names))) {
-#   for(j in 1:(length(cross_mother_names))) {
-#     ptm <- proc.time()
-#     
-#     # Get the first series variables
-#     name1 <- cross_child_names[[i]]
-#     series1 <- concat_series[[name1]]
-#     E1 <- joint_tau_embed[["E", name1]]
-#     T1 <- joint_tau_embed[["T", name1]]
-#     signal1 <- SSR_check_signal(A=series1, E=E1, tau=T1, predsteplist=1:10)
-#     signal_plot1 <- signal1$predatout
-#     
-#     # Get the second series variables
-#     name2 <- cross_mother_names[[j]]
-#     series2 <- concat_series[[name2]]
-#     E2 <- joint_tau_embed[["E", name2]]
-#     T2 <- joint_tau_embed[["T", name2]]
-#     signal2 <- SSR_check_signal(A=series2, E=E2, tau=T2, predsteplist=1:10)
-#     signal_plot2 <- signal2$predatout
-#     
-#     # Check data for nonlinear signal that is not dominated by noise
-#     signal_filename <- paste(paste(directory, "CCM_data/Signal/", name1, sep = ""), name2, "signal.jpg", sep="_")
-#     jpeg(signal_filename)
-#     plot <- cbind(signal_plot1$rho, signal_plot2$rho)
-#     matplot(1:10, plot, type="l", col=1:2, lty=1:2, xlab="Prediction Steps", ylab=expression(rho), lwd=2)
-#     title(main = paste("Child", signal_graph_names[[i]], "and Mother" , signal_graph_names[[j]], sep = " "))
-#     legend("bottomleft", c(paste("Child", signal_graph_names[[i]]), paste("Mother", signal_graph_names[[j]])), lty=1:2, col=1:2, lwd=2, bty="n")
-#     dev.off()
-#     
-#     # Check whether predictive ability of processes declines with increasing time distance
-#     CCM_boot1 <- CCM_boot(series1, series2, E1, tau=T1, iterations=5)
-#     CCM_boot2 <- CCM_boot(series2, series1, E2, tau=T2, iterations=5)
-# 
-#     # Store boot data
-#     directory_name1 <- paste(paste(directory, "CCM_data/Causal/", name1, sep=""), "causes", name2, sep = "_")
-#     dir.create(directory_name1, showWarnings = FALSE)
-#     for(k in 1:(length(CCM_boot1))) {
-#       write(CCM_boot1[[k]], paste(directory_name1, "/", names(CCM_boot1)[[k]], sep = ""))
-#     }
-#     directory_name2 <- paste(paste(directory, "CCM_data/Causal/", name2, sep=""), "causes", name1, sep = "_")
-#     dir.create(directory_name2, showWarnings = FALSE)
-#     for(k in 1:(length(CCM_boot2))) {
-#       write(CCM_boot2[[k]], paste(directory_name2, "/", names(CCM_boot2)[[k]], sep = ""))
-#     }
-#     
-#     # Tests for significant causal signal based on 95% confidence intervals from bootstrapping.
-#     CCM_sig <- ccmtest(CCM_boot1, CCM_boot2)
-#     p_values <- c(p_values, CCM_sig)
-#     p_names <- c(p_names, paste(name1, "causes", name2), paste(name2, "causes", name1))
-#     
-#     print(index)
-#     index <- index + 1
-#     print(proc.time() - ptm)
-#   }
-# }
-# 
-# # Perform inner analysis
-# index <- 1
-# for(i in 1:(length(cross_child_names))) {
-#   for(j in 1:(length(cross_child_names))) {
-#     if(i < j) {
-#       ptm <- proc.time()
-#       
-#       # Get the first series variables
-#       name1 <- cross_child_names[[i]]
-#       series1 <- concat_series[[name1]]
-#       E1 <- joint_tau_embed[["E", name1]]
-#       T1 <- joint_tau_embed[["T", name1]]
-#       signal1 <- SSR_check_signal(A=series1, E=E1, tau=T1, predsteplist=1:10)
-#       signal_plot1 <- signal1$predatout
-#       
-#       # Get the second series variables
-#       name2 <- cross_child_names[[j]]
-#       series2 <- concat_series[[name2]]
-#       E2 <- joint_tau_embed[["E", name2]]
-#       T2 <- joint_tau_embed[["T", name2]]
-#       signal2 <- SSR_check_signal(A=series2, E=E2, tau=T2, predsteplist=1:10)
-#       signal_plot2 <- signal2$predatout
-#       
-#       # Check data for nonlinear signal that is not dominated by noise
-#       signal_filename <- paste(paste(directory, "CCM_data/Signal/bootstrap", sep = ""), name1, name2, "signal.jpg", sep="_")
-#       jpeg(signal_filename)
-#       plot <- cbind(signal_plot1$rho, signal_plot2$rho)
-#       matplot(1:10, plot, type="l", col=1:2, lty=1:2, xlab="Prediction Steps", ylab=expression(rho), lwd=2)
-#       title(main = paste(signal_graph_names[[i]], "and" , signal_graph_names[[j]], sep = " "))
-#       legend("bottomleft", c(signal_graph_names[[i]], signal_graph_names[[j]]), lty=1:2, col=1:2, lwd=2, bty="n")
-#       dev.off()
-#       
-#       # Check whether predictive ability of processes declines with increasing time distance
-#       CCM_boot1 <- CCM_boot(series1, series2, E1, tau=T1, iterations=5)
-#       CCM_boot2 <- CCM_boot(series2, series1, E2, tau=T2, iterations=5)
-#       
-#       # Store boot data
-#       directory_name1 <- paste(paste(directory, "CCM_data/Causal/bootstrap", sep=""), name1, "causes", name2, sep = "_")
-#       dir.create(directory_name1, showWarnings = FALSE)
-#       for(k in 1:(length(CCM_boot1))) {
-#         write(CCM_boot1[[k]], paste(directory_name1, "/", names(CCM_boot1)[[k]], sep = ""))
-#       }
-#       directory_name2 <- paste(paste(directory, "CCM_data/Causal/bootstrap", sep=""), name2, "causes", name1, sep = "_")
-#       dir.create(directory_name2, showWarnings = FALSE)
-#       for(k in 1:(length(CCM_boot2))) {
-#         write(CCM_boot2[[k]], paste(directory_name2, "/", names(CCM_boot2)[[k]], sep = ""))
-#       }
-#       
-#       # Tests for significant causal signal based on 95% confidence intervals from bootstrapping.
-#       CCM_sig <- ccmtest(CCM_boot1, CCM_boot2)
-#       p_values <- c(p_values, CCM_sig)
-#       p_names <- c(p_names, paste(name1, "causes", name2), paste(name2, "causes", name1))
-#       
-#       print(index)
-#       index <- index + 1
-#       print(proc.time() - ptm)
-#     }
-#   }
-# }
-# 
-# # Write all p_values
-# names(p_values) <- p_names
-# p_df <- t(data.frame(p_values))
-# write.table(format(p_df, digits=22), paste(directory, "CCM_data/", file_lang, "_p_values.csv", sep = ""))
+options(digits=22)
+colnames(concat_series) <- colnames(joint_tau_embed)
+cross_child_names <- c("child_loq", "child_lex", "child_new", "child_syn")
+cross_mother_names <- c("mother_loq", "mother_lex", "mother_new", "mother_syn")
+inner_names <- c("loq", "lex", "new", "syn")
+p_values <- c()
+p_names <- c()
+signal_graph_names <- c("Loquacity", "Lexical", "New", "Syntactic")
+dir.create(paste(directory, "CCM_data/Signal", sep = ""), showWarnings = FALSE)
+dir.create(paste(directory, "CCM_data/Causal", sep = ""), showWarnings = FALSE)
+
+# Perform cross analysis
+index <- 1
+for(i in 1:(length(cross_child_names))) {
+  for(j in 1:(length(cross_mother_names))) {
+    ptm <- proc.time()
+    
+    # Get the first series variables
+    name1 <- cross_child_names[[i]]
+    series1 <- concat_series[[name1]]
+    E1 <- joint_tau_embed[["E", name1]]
+    T1 <- joint_tau_embed[["T", name1]]
+    signal1 <- SSR_check_signal(A=series1, E=E1, tau=T1, predsteplist=1:10)
+    signal_plot1 <- signal1$predatout
+    
+    # Get the second series variables
+    name2 <- cross_mother_names[[j]]
+    series2 <- concat_series[[name2]]
+    E2 <- joint_tau_embed[["E", name2]]
+    T2 <- joint_tau_embed[["T", name2]]
+    signal2 <- SSR_check_signal(A=series2, E=E2, tau=T2, predsteplist=1:10)
+    signal_plot2 <- signal2$predatout
+    
+    # Check data for nonlinear signal that is not dominated by noise
+    signal_filename <- paste(paste(directory, "CCM_data/Signal/", name1, sep = ""), name2, "signal.jpg", sep="_")
+    jpeg(signal_filename)
+    plot <- cbind(signal_plot1$rho, signal_plot2$rho)
+    matplot(1:10, plot, type="l", col=1:2, lty=1:2, xlab="Prediction Steps", ylab=expression(rho), lwd=2)
+    title(main = paste("Child", signal_graph_names[[i]], "and Mother" , signal_graph_names[[j]], sep = " "))
+    legend("bottomleft", c(paste("Child", signal_graph_names[[i]]), paste("Mother", signal_graph_names[[j]])), lty=1:2, col=1:2, lwd=2, bty="n")
+    dev.off()
+    
+    # Check whether predictive ability of processes declines with increasing time distance
+    CCM_boot1 <- CCM_boot(series1, series2, E1, tau=T1, iterations=5)
+    CCM_boot2 <- CCM_boot(series2, series1, E2, tau=T2, iterations=5)
+
+    # Store boot data
+    directory_name1 <- paste(paste(directory, "CCM_data/Causal/", name1, sep=""), "causes", name2, sep = "_")
+    dir.create(directory_name1, showWarnings = FALSE)
+    for(k in 1:(length(CCM_boot1))) {
+      write(CCM_boot1[[k]], paste(directory_name1, "/", names(CCM_boot1)[[k]], sep = ""))
+    }
+    directory_name2 <- paste(paste(directory, "CCM_data/Causal/", name2, sep=""), "causes", name1, sep = "_")
+    dir.create(directory_name2, showWarnings = FALSE)
+    for(k in 1:(length(CCM_boot2))) {
+      write(CCM_boot2[[k]], paste(directory_name2, "/", names(CCM_boot2)[[k]], sep = ""))
+    }
+    
+    # Tests for significant causal signal based on 95% confidence intervals from bootstrapping.
+    CCM_sig <- ccmtest(CCM_boot1, CCM_boot2)
+    p_values <- c(p_values, CCM_sig)
+    p_names <- c(p_names, paste(name1, "causes", name2), paste(name2, "causes", name1))
+    
+    print(index)
+    index <- index + 1
+    print(proc.time() - ptm)
+  }
+}
+
+# Perform inner analysis
+index <- 1
+for(i in 1:(length(cross_child_names))) {
+  for(j in 1:(length(cross_child_names))) {
+    if(i < j) {
+      ptm <- proc.time()
+      
+      # Get the first series variables
+      name1 <- cross_child_names[[i]]
+      series1 <- concat_series[[name1]]
+      E1 <- joint_tau_embed[["E", name1]]
+      T1 <- joint_tau_embed[["T", name1]]
+      signal1 <- SSR_check_signal(A=series1, E=E1, tau=T1, predsteplist=1:10)
+      signal_plot1 <- signal1$predatout
+      
+      # Get the second series variables
+      name2 <- cross_child_names[[j]]
+      series2 <- concat_series[[name2]]
+      E2 <- joint_tau_embed[["E", name2]]
+      T2 <- joint_tau_embed[["T", name2]]
+      signal2 <- SSR_check_signal(A=series2, E=E2, tau=T2, predsteplist=1:10)
+      signal_plot2 <- signal2$predatout
+      
+      # Check data for nonlinear signal that is not dominated by noise
+      signal_filename <- paste(paste(directory, "CCM_data/Signal/bootstrap", sep = ""), name1, name2, "signal.jpg", sep="_")
+      jpeg(signal_filename)
+      plot <- cbind(signal_plot1$rho, signal_plot2$rho)
+      matplot(1:10, plot, type="l", col=1:2, lty=1:2, xlab="Prediction Steps", ylab=expression(rho), lwd=2)
+      title(main = paste(signal_graph_names[[i]], "and" , signal_graph_names[[j]], sep = " "))
+      legend("bottomleft", c(signal_graph_names[[i]], signal_graph_names[[j]]), lty=1:2, col=1:2, lwd=2, bty="n")
+      dev.off()
+      
+      # Check whether predictive ability of processes declines with increasing time distance
+      CCM_boot1 <- CCM_boot(series1, series2, E1, tau=T1, iterations=5)
+      CCM_boot2 <- CCM_boot(series2, series1, E2, tau=T2, iterations=5)
+      
+      # Store boot data
+      directory_name1 <- paste(paste(directory, "CCM_data/Causal/bootstrap", sep=""), name1, "causes", name2, sep = "_")
+      dir.create(directory_name1, showWarnings = FALSE)
+      for(k in 1:(length(CCM_boot1))) {
+        write(CCM_boot1[[k]], paste(directory_name1, "/", names(CCM_boot1)[[k]], sep = ""))
+      }
+      directory_name2 <- paste(paste(directory, "CCM_data/Causal/bootstrap", sep=""), name2, "causes", name1, sep = "_")
+      dir.create(directory_name2, showWarnings = FALSE)
+      for(k in 1:(length(CCM_boot2))) {
+        write(CCM_boot2[[k]], paste(directory_name2, "/", names(CCM_boot2)[[k]], sep = ""))
+      }
+      
+      # Tests for significant causal signal based on 95% confidence intervals from bootstrapping.
+      CCM_sig <- ccmtest(CCM_boot1, CCM_boot2)
+      p_values <- c(p_values, CCM_sig)
+      p_names <- c(p_names, paste(name1, "causes", name2), paste(name2, "causes", name1))
+      
+      print(index)
+      index <- index + 1
+      print(proc.time() - ptm)
+    }
+  }
+}
+
+# Write all p_values
+names(p_values) <- p_names
+p_df <- t(data.frame(p_values))
+write.table(format(p_df, digits=22), paste(directory, "CCM_data/", file_lang, "_p_values.csv", sep = ""))

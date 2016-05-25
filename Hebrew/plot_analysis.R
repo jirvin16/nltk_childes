@@ -2,18 +2,18 @@ library(multispatialCCM)
 library(tseriesChaos)
 library(cluster)
 
-language = "English"
+language = "Hebrew"
 file_lang = tolower(substr(language, 1, 3))
 
 directory = paste("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/", language, "/", sep = "")
 
 # Set necessary variables
-cross_child_names <- c("child_loq", "child_lex", "child_inf", "child_syn")
-cross_mother_names <- c("mother_loq", "mother_lex", "mother_inf", "mother_syn")
-formal_names <- c("Loquacity", "Lexical Diversity", "Inflectional Diversity",  "MLU")
+cross_child_names <- c("child_loq", "child_lex", "child_new", "child_syn")
+cross_mother_names <- c("mother_loq", "mother_lex", "mother_new", "mother_syn")
+formal_names <- c("Loquacity", "Lexical Diversity", "New",  "MLU")
 
 # Get the p_values from file
-p_df <- read.table(paste(directory, "CCM_data/eng_p_values.csv", sep = ""), header=TRUE)
+p_df <- read.table(paste(directory, "CCM_data/", file_lang, "_p_values.csv", sep = ""), header=TRUE)
  # Adjust for mutiple comparisons using fdr
 fdr_p_values <- p.adjust(p_values, method="fdr")
 fdr_df <- t(data.frame(fdr_p_values))

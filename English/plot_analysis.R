@@ -13,7 +13,7 @@ cross_mother_names <- c("mother_loq", "mother_lex", "mother_inf", "mother_syn")
 formal_names <- c("Loquacity", "Lexical Diversity", "Inflectional Diversity",  "MLU")
 
 # Get the p_values from file
-p_df <- read.table(paste(directory, "CCM_data/eng_p_values.csv", sep = ""), header=TRUE)
+p_df <- read.table(paste(directory, "CCM_data/", file_lang, "_p_values.csv", sep = ""), header=TRUE)
  # Adjust for mutiple comparisons using fdr
 fdr_p_values <- p.adjust(p_values, method="fdr")
 fdr_df <- t(data.frame(fdr_p_values))
