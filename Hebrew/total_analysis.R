@@ -2,7 +2,7 @@ library(multispatialCCM)
 library(tseriesChaos)
 library(cluster)
 
-language = "English"
+language = "Hebrew"
 file_lang = tolower(substr(language, 1, 3))
 
 directory = paste("/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/", language, "/", sep = "")
@@ -86,7 +86,6 @@ GetTauData <- function(measurement_names, list_child_df, sorted_name_list, clust
   }
   row.names(tau_data) <- measurement_names
   tau_data <- t(tau_data)
-  
   if(cluster) {
     MyClust <- function(x,k,...){
       # Inputs data x
@@ -95,8 +94,8 @@ GetTauData <- function(measurement_names, list_child_df, sorted_name_list, clust
       dvk <- cutree(as.hclust(dv),k)
       list(cluster=dvk)
     }
-    # Find the optimal number of clusters from 1 to 5 of children in tau_data
-    clusters <- clusGap(tau_data, FUNcluster = MyClust, K.max = 5)
+    # Find the optimal number of clusters from 1 to 2 of children in tau_data
+    clusters <- clusGap(tau_data, FUNcluster = MyClust, K.max = 2)
     # print(maxSE(clusters$Tab[,3],clusters$Tab[,4],"Tibs2001SEmax"))
     print(clusters)
   }
@@ -139,7 +138,7 @@ GetJointTauEmbed <- function(measurement_names, concat_series, median_taus, plot
   colnames(joint_tau_embed) <- c("child_loq", "child_lex", "child_inf", "child_syn", "mother_loq", "mother_lex", "mother_inf", "mother_syn")
   write.table(joint_tau_embed, paste(directory, "CCM_data/joint_tau_embed_total.csv", sep = ""), sep = ",")
 }
-GetJointTauEmbed(measurement_names, concat_series, median_taus, plot = FALSE)
+GetJointTauEmbed(measurement_names, concat_series, median_taus, plot = TRUE)
 joint_tau_embed <- read.table(paste(directory, "CCM_data/joint_tau_embed_total.csv", sep = ""), header = TRUE, sep = ",")
 
 # options(digits=22)

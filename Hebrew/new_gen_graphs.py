@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 
 language = "Hebrew"
-file_lang = "heb"
+file_lang = language[:3].lower()
 data_directory = os.getcwd() + "/data_directory/"
 # data_directory = "/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/" + language + "/data_directory/"
 
@@ -62,9 +62,9 @@ for x in range(4):
 		measurement_mother = "H.mother.S"
 		measurement_name = "Lexical Diversity"
 	elif(x == 2):
-		measurement_child = "H.child.I"
-		measurement_mother = "H.mother.I"
-		measurement_name = "Inflectional Diversity"
+		measurement_child = "H.child"
+		measurement_mother = "H.mother"
+		measurement_name = "New Diversity"
 	elif(x == 3):
 		measurement_child = "Schild"
 		measurement_mother = "Smother"
@@ -101,7 +101,7 @@ for x in range(4):
 	elif(x == 1):
 		plt.savefig(file_lang + '_lexical_evolution.png')
 	elif(x == 2):
-		plt.savefig(file_lang + '_inflectional_evolution.png')
+		plt.savefig(file_lang + '_new_evolution.png')
 	elif(x == 3):
 		plt.savefig(file_lang + '_syntactic_evolution.png')
 

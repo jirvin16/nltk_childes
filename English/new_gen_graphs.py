@@ -12,36 +12,20 @@ from pandas import *
 import matplotlib.pyplot as plt
 from matplotlib.font_manager import FontProperties
 
-def get_files(corpus):
-    # Inputs the name of the corpus 
-    # Outputs:
-    # corpus_root: string local path to corpora /.../nltk_data/corpora/childes/[corpus]
-    # eng: CHILDESCorpusReader tool
-    # files: lsit of name of files in corpus_root
-    # data_directory: string location of future output data
-    corpus_root = data.find('corpora/childes/English-UK-MOR')
-    eng = CHILDESCorpusReader(corpus_root, 'Manchester/.*.xml')
-#     if(corpus_root == "/Users/dspoka/nltk_data/corpora/childes/English-UK-MOR"):
-        # CHANGE THIS
-        #data_directory = "/Users/dspoka/Desktop/moscoso/nltk_childes/NLTKCHILDES/"
-#     else:
-    data_directory = "/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/English/data_directory/"
-    files = eng.fileids()
-    return corpus_root, eng, files, data_directory
+language = "English"
+file_lang = "eng"
+data_directory = "/Users/jeremyirvin/Desktop/SeniorThesis/Childes/nltk_childes/" + language + "/data_directory/"
+
 # %timeit files = get_files('childes')
-corpus_root, eng, files, data_directory = get_files('manchester')
-nmmfile = data_directory + "morph-eng.csv"
-nmsfile = data_directory + "syntax-eng.csv"
-# childes has 804 files
 
 # Read data as a ssv (space-separated file)
 
-df = pandas.read_csv(nmmfile, delimiter= ' ')
+df = pandas.read_csv(data_directory + "morph-" + file_lang + ".csv", delimiter= ' ')
 
 # Sort data by children alphabetically, then age increasing
 sorted_df = df.sort(columns=['Child', 'Age'])
 
-sorted_df.to_csv(data_directory + "sorted-morph-eng.csv", sep = ' ');
+sorted_df.to_csv(data_directory + "sorted-morph-" + file_lang + ".csv", sep = ' ');
 
 # Get list of the names of the children
 name_list = Series(sorted_df['Child']).unique()
@@ -63,8 +47,8 @@ child_split_df = {}
 for child in sorted_name_list:
     child_split_df[child] = sorted_df[sorted_df['Child'] == child]
 
-# color_list = [(1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0), (1.0, 1.0, 0.0), (1.0, 0.0, 1.0), (0.0, 1.0, 1.0), (0.0, 0.0, 0.0), (0.0, 0.5019607843137255, 0.0), (0.5019607843137255, 0.0, 0.5019607843137255), (0.5019607843137255, 0.5019607843137255, 0.5019607843137255), (0.7529411764705882, 0.0, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0)]
-color_list = [(1.0, 0.0, 0.0), (0.0, 0.0, 1.0)] #, (0.0, 1.0, 0.0)]
+color_list = [(1.0, 0.0, 0.0), (0.0, 1.0, 0.0), (0.0, 0.0, 1.0), (1.0, 1.0, 0.0), (1.0, 0.0, 1.0), (0.0, 1.0, 1.0), (0.0, 0.0, 0.0), (0.0, 0.5019607843137255, 0.0), (0.5019607843137255, 0.0, 0.5019607843137255), (0.5019607843137255, 0.5019607843137255, 0.5019607843137255), (0.7529411764705882, 0.0, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0), (1.0, 0.6470588235294118, 0.0)]
+# color_list = [(1.0, 0.0, 0.0), (0.0, 0.0, 1.0)] #, (0.0, 1.0, 0.0)]
 # Plot the data nicely    
 for x in range(4):
 	if(x == 0):
@@ -95,15 +79,15 @@ for x in range(4):
 	for j in range(len(measurement_list)):
 		i = 0
 		for child in sorted_name_list:
-		    # line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '--' if j == 0 else '-', color=color_list[i % len(color_list)], label=child if j == 1 else child + " mother", linewidth = 3.5)
-		    if( (child == "ruth" or child == "nic") and j == 1):
-		    	line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-', color= color_list[j], label=child, linewidth = 7)
-		    elif j == 0 and i == 0:
-		    	line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-', color= color_list[j], label="mother", linewidth = 3.5)
-		    elif j == 1 and i == 0:
-		    	line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-', color= color_list[j], label="child", linewidth = 3.5)
-		    else:
-		    	line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-', color= color_list[j], linewidth = 3.5)
+		    line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '--' if j == 0 else '-', color=color_list[i % len(color_list)], label=child if j == 1 else child + " mother", linewidth = 3.5)
+		    # if( (child == "ruth" or child == "nic") and j == 1):
+		    # 	line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-', color= color_list[j], label=child, linewidth = 7)
+		    # elif j == 0 and i == 0:
+		    # 	line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-', color= color_list[j], label="mother", linewidth = 3.5)
+		    # elif j == 1 and i == 0:
+		    # 	line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-', color= color_list[j], label="child", linewidth = 3.5)
+		    # else:
+		    # 	line, = plt.plot(child_split_df[child]["Age"], child_split_df[child][measurement_list[j]], linestyle= '-', color= color_list[j], linewidth = 3.5)
 		    lines.append(line)
 		    i += 1;
 
@@ -111,12 +95,12 @@ for x in range(4):
 	plt.legend(handles=lines, loc = 4, prop={'size':17})
 
 	if(x == 0):
-		plt.savefig('nwords_evolution2.png')
+		plt.savefig(file_lang + '_nwords_evolution.png')
 	elif(x == 1):
-		plt.savefig('lexical_evolution2.png')
+		plt.savefig(file_lang + '_lexical_evolution.png')
 	elif(x == 2):
-		plt.savefig('inflectional_evolution2.png')
+		plt.savefig(file_lang + '_inflectional_evolution.png')
 	elif(x == 3):
-		plt.savefig('syntactic_evolution2.png')
+		plt.savefig(file_lang + '_syntactic_evolution.png')
 
 # 5s to run
